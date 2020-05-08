@@ -25,6 +25,7 @@ final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
     @IBOutlet private var avatarImageView: UIImageView!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var containerStackView: UIStackView!
+    @IBOutlet var feedActivityIndicatorView: UIActivityIndicatorView!
     
     @IBOutlet private var bigLike: UIImageView!
     
@@ -44,6 +45,7 @@ final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
         
     }
     
+    
     /// настройка ленты
     func setupFeed(post: Post) {
         dateLabel.text = post.createdTime.displayDate()
@@ -60,6 +62,7 @@ final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
         }
         likeButton.tintColor = defaultTintColor
     }
+    
 }
 
 //MARK: Selector

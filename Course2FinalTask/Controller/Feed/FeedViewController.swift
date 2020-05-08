@@ -14,6 +14,8 @@ final class FeedViewController: UIViewController, NibInit {
     
     private var postsArray: [Post] = []
     private var post: Post?
+    @IBOutlet var feedUIActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet var feedUIViewActivity: UIView!
     
     @IBOutlet weak private var feedCollectionView: UICollectionView!
         {
@@ -30,17 +32,18 @@ final class FeedViewController: UIViewController, NibInit {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         dataProvidersPosts.feed(queue: queue) { [weak self] posts in
             guard let posts = posts else { return }
             self?.postsArray = posts
-            
             DispatchQueue.main.async {
+
                 self?.feedCollectionView.reloadData()
             }
         }
-        
+        navigationController?.navigationBar.isTranslucent = false
         title = ControllerSet.feedViewController
+        
     }
 }
 
@@ -72,13 +75,17 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width
+        let width = collectionView.bounds.width
         
         let post = postsArray[indexPath.row]
         
         let estimatedFrame = NSString(string: post.description).boundingRect(with: CGSize(width: width - 8, height: width - 8), options: .usesLineFragmentOrigin, attributes: nil, context: nil)
-        
         return CGSize(width: width, height: estimatedFrame.height + width + 130)
+    }
+    
+    /// убираю отступ между ячейками
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
 
@@ -87,17 +94,22 @@ extension FeedViewController: FeedCollectionViewProtocol {
     
     /// открывает профиль пользователя
     func openUserProfile(cell: FeedCollectionViewCell) {
+        
+        ActivityIndicator.start()
+       
         let profileViewController = ProfileViewController.initFromNib()
         guard let indexPath = feedCollectionView.indexPath(for: cell) else { return }
-        
+
         let currentPost = postsArray[indexPath.row]
-        
+
         dataProvidersUser.user(with: currentPost.author, queue: queue, handler: { user in
             guard let user = user else { return }
-            
+
             profileViewController.userProfile = user
             
             DispatchQueue.main.async {
+                ActivityIndicator.stop()
+              
                 self.navigationController?.pushViewController(profileViewController, animated: true)
             }
         })
@@ -136,8 +148,8 @@ extension FeedViewController: FeedCollectionViewProtocol {
     
     /// открывает список пользователей поставивших лайк
     func userList(cell: FeedCollectionViewCell) {
-        
-        let userListViewController = UserListViewController.initFromNib()
+        ActivityIndicator.start()
+        let userListViewController = UserListViewController()
         
         guard let indexPath = feedCollectionView.indexPath(for: cell) else { return }
         
@@ -150,6 +162,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
             DispatchQueue.main.async {
                 userListViewController.navigationItemTitle = NamesItemTitle.likes
                 self.navigationController?.pushViewController(userListViewController, animated: true)
+                ActivityIndicator.stop()
             }
         }
     }

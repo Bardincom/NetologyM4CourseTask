@@ -28,6 +28,7 @@
 		A293F707240BB8EC003D5A96 /* UICollectionView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293F706240BB8EC003D5A96 /* UICollectionView + Extension.swift */; };
 		A293F70C240BE7A8003D5A96 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293F70A240BE7A8003D5A96 /* ProfileCollectionViewCell.swift */; };
 		A293F70D240BE7A8003D5A96 /* ProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A293F70B240BE7A8003D5A96 /* ProfileCollectionViewCell.xib */; };
+		A2AB4FFF2465B74B007BB8F9 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AB4FFE2465B74B007BB8F9 /* ActivityIndicator.swift */; };
 		A2C014E42454F228001A4894 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C014E22454F228001A4894 /* NewPostViewController.swift */; };
 		A2C014E52454F228001A4894 /* NewPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2C014E32454F228001A4894 /* NewPostViewController.xib */; };
 		A2C014E82454F26E001A4894 /* NewPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C014E62454F26E001A4894 /* NewPostCollectionViewCell.swift */; };
@@ -77,6 +78,7 @@
 		A293F706240BB8EC003D5A96 /* UICollectionView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView + Extension.swift"; sourceTree = "<group>"; };
 		A293F70A240BE7A8003D5A96 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		A293F70B240BE7A8003D5A96 /* ProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionViewCell.xib; sourceTree = "<group>"; };
+		A2AB4FFE2465B74B007BB8F9 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		A2C014E22454F228001A4894 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		A2C014E32454F228001A4894 /* NewPostViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewPostViewController.xib; sourceTree = "<group>"; };
 		A2C014E62454F26E001A4894 /* NewPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				A27133A9240F7FB8007E13BC /* UIViewController Properties.swift */,
+				A2AB4FFE2465B74B007BB8F9 /* ActivityIndicator.swift */,
 				A23BC8A52418FF3700640E54 /* UIColor Properties.swift */,
 				A23BC8A92419054400640E54 /* UIFont Properties.swift */,
 				A23BC8A72419046E00640E54 /* DataProvider Properties.swift */,
@@ -356,6 +359,7 @@
 			files = (
 				A25E5462240C275200478BC5 /* ProfileHeaderCollectionReusableView.swift in Sources */,
 				A2473B9E240825D600623034 /* NibInit.swift in Sources */,
+				A2AB4FFF2465B74B007BB8F9 /* ActivityIndicator.swift in Sources */,
 				A293F707240BB8EC003D5A96 /* UICollectionView + Extension.swift in Sources */,
 				A23BC8AA2419054400640E54 /* UIFont Properties.swift in Sources */,
 				A25685C024335B9400A09C0D /* UserListTableViewCell.swift in Sources */,

@@ -56,7 +56,7 @@ extension UserListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectUser = selectUsers(users: usersList)[indexPath.row]
 
-        let profileViewController = ProfileViewController.initFromNib()
+        let profileViewController = ProfileViewController()
         profileViewController.userProfile = selectUser
         self.navigationController?.pushViewController(profileViewController, animated: true)
         userListTableView.deselectRow(at: indexPath, animated: true)

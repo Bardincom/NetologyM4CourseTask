@@ -28,7 +28,7 @@ final class ProfileViewController: UIViewController, NibInit {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+     view.backgroundColor = viewBackgroundColor
         setupViewController()
         
     }
@@ -79,9 +79,9 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         guard let view = view as? ProfileHeaderCollectionReusableView else {
             assertionFailure()
             return  }
-
+        
         guard let userProfile = userProfile else { return }
-        /// устновка Хедера
+        /// установка Хедера
         view.setHeader(user: userProfile)
         view.delegate = self
     }
@@ -97,29 +97,34 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 extension ProfileViewController {
     
     func setupViewController() {
-        
-        if userProfile == nil {
-            dataProvidersUser.currentUser(queue: queue) { [weak self] user in
-                guard let user = user else { return }
-                self?.userProfile = user
-            }
-            
-            DispatchQueue.main.async {
-                      self.view.backgroundColor = viewBackgroundColor
-                      self.title = self.userProfile?.username
-                  }
-        }
+        ActivityIndicator.start()
+                if userProfile == nil {
+                    dataProvidersUser.currentUser(queue: queue) { [weak self] user in
+                        guard let user = user else { return }
+                        self?.userProfile = user
+                    }
+
+                    DispatchQueue.main.async {
+        self.view.backgroundColor = viewBackgroundColor
+                              self.title = self.userProfile?.username
+//                        ActivityIndicator.stop()
+                          }
+                }
         
         guard let userProfile = userProfile?.id else { return }
-        
+
         dataProvidersPosts.findPosts(by: userProfile, queue: queue) { [weak self] post in
             guard let post = post else { return }
             self?.postsProfile = post
-            
+
             DispatchQueue.main.async {
+
                 self?.view.backgroundColor = viewBackgroundColor
                 self?.title = self?.userProfile?.username
+                self?.tabBarItem.title = ControllerSet.profileViewController
                 self?.profileCollectionView.reloadData()
+                ActivityIndicator.stop()
+
             }
         }
     }
@@ -129,7 +134,10 @@ extension ProfileViewController {
 extension ProfileViewController: ProfileHeaderDelegate {
     
     func openFollowersList() {
-        let userListViewController = UserListViewController.initFromNib()
+        
+        ActivityIndicator.start()
+        
+        let userListViewController = UserListViewController()
         
         guard let userProfile = userProfile?.id else { return }
         dataProvidersUser.usersFollowedByUser(with: userProfile, queue: queue) { users in
@@ -139,12 +147,15 @@ extension ProfileViewController: ProfileHeaderDelegate {
             DispatchQueue.main.async {
                 userListViewController.navigationItemTitle = NamesItemTitle.followers
                 self.navigationController?.pushViewController(userListViewController, animated: true)
+                ActivityIndicator.stop()
             }
         }
     }
     
     func openFollowingList() {
-        let userListViewController = UserListViewController.initFromNib()
+        ActivityIndicator.start()
+        
+        let userListViewController = UserListViewController()
         
         guard let userProfile = userProfile?.id else { return }
         
@@ -156,6 +167,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
             DispatchQueue.main.async {
                 userListViewController.navigationItemTitle = NamesItemTitle.following
                 self.navigationController?.pushViewController(userListViewController, animated: true)
+                ActivityIndicator.stop()
             }
         })        
     }
