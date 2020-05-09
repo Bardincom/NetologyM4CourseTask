@@ -17,6 +17,8 @@ final class ProfileViewController: UIViewController, NibInit {
         }
     }
     
+    var currentUser: User?
+    
     private var postsProfile: [Post]?
     
     @IBOutlet weak private var profileCollectionView: UICollectionView! {
@@ -28,7 +30,14 @@ final class ProfileViewController: UIViewController, NibInit {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     view.backgroundColor = viewBackgroundColor
+        view.backgroundColor = viewBackgroundColor
+        
+        dataProvidersUser.currentUser(queue: queue) { currentUser in
+            guard let currentUser = currentUser else { return }
+            self.currentUser = currentUser
+        }
+        
+        
         setupViewController()
         
     }
@@ -82,8 +91,11 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         
         guard let userProfile = userProfile else { return }
         /// установка Хедера
-        view.setHeader(user: userProfile)
-        view.delegate = self
+        DispatchQueue.main.async {
+            view.setHeader(user: userProfile)
+            view.delegate = self
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -97,34 +109,35 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 extension ProfileViewController {
     
     func setupViewController() {
+        
         ActivityIndicator.start()
-                if userProfile == nil {
-                    dataProvidersUser.currentUser(queue: queue) { [weak self] user in
-                        guard let user = user else { return }
-                        self?.userProfile = user
-                    }
-
-                    DispatchQueue.main.async {
-        self.view.backgroundColor = viewBackgroundColor
-                              self.title = self.userProfile?.username
-//                        ActivityIndicator.stop()
-                          }
-                }
+        if userProfile == nil {
+            dataProvidersUser.currentUser(queue: queue) { [weak self] user in
+                guard let user = user else { return }
+                self?.userProfile = user
+            }
+            
+            DispatchQueue.main.async {
+                self.view.backgroundColor = viewBackgroundColor
+                self.title = self.userProfile?.username
+                self.profileCollectionView.reloadData()
+            }
+        }
         
         guard let userProfile = userProfile?.id else { return }
-
+        
         dataProvidersPosts.findPosts(by: userProfile, queue: queue) { [weak self] post in
             guard let post = post else { return }
             self?.postsProfile = post
-
+            
             DispatchQueue.main.async {
-
+                
                 self?.view.backgroundColor = viewBackgroundColor
                 self?.title = self?.userProfile?.username
                 self?.tabBarItem.title = ControllerSet.profileViewController
                 self?.profileCollectionView.reloadData()
                 ActivityIndicator.stop()
-
+                
             }
         }
     }
@@ -132,36 +145,16 @@ extension ProfileViewController {
 
 //MARK: ProfileHeaderDelegate
 extension ProfileViewController: ProfileHeaderDelegate {
-    
+    /// Открывает список подписчиков
     func openFollowersList() {
         
         ActivityIndicator.start()
         
         let userListViewController = UserListViewController()
         
-        guard let userProfile = userProfile?.id else { return }
-        dataProvidersUser.usersFollowedByUser(with: userProfile, queue: queue) { users in
+        guard let userID = userProfile?.id else { return }
+        dataProvidersUser.usersFollowingUser(with: userID, queue: queue) { users in
             guard let users = users else { return }
-            userListViewController.usersList = users
-            
-            DispatchQueue.main.async {
-                userListViewController.navigationItemTitle = NamesItemTitle.followers
-                self.navigationController?.pushViewController(userListViewController, animated: true)
-                ActivityIndicator.stop()
-            }
-        }
-    }
-    
-    func openFollowingList() {
-        ActivityIndicator.start()
-        
-        let userListViewController = UserListViewController()
-        
-        guard let userProfile = userProfile?.id else { return }
-        
-        dataProvidersUser.usersFollowingUser(with: userProfile, queue: queue, handler: { users in
-            guard let users = users else { return }
-            
             userListViewController.usersList = users
             
             DispatchQueue.main.async {
@@ -169,6 +162,56 @@ extension ProfileViewController: ProfileHeaderDelegate {
                 self.navigationController?.pushViewController(userListViewController, animated: true)
                 ActivityIndicator.stop()
             }
+        }
+    }
+    
+    /// Открывает список подписок
+    func openFollowingList() {
+        ActivityIndicator.start()
+        
+        let userListViewController = UserListViewController()
+        
+        guard let userID = userProfile?.id else { return }
+        
+        dataProvidersUser.usersFollowedByUser(with: userID, queue: queue, handler: { users in
+            guard let users = users else { return }
+            
+            userListViewController.usersList = users
+            
+            DispatchQueue.main.async {
+                userListViewController.navigationItemTitle = NamesItemTitle.followers
+                self.navigationController?.pushViewController(userListViewController, animated: true)
+                ActivityIndicator.stop()
+            }
         })        
+    }
+    
+    // TODO: убрать интикатор загрузки при подписке или отписке
+    func followUnfollowUser() {
+        
+        guard let userProfile = userProfile else { return }
+        print(userProfile.id)
+        if userProfile.currentUserFollowsThisUser {
+            dataProvidersUser.unfollow(userProfile.id, queue: queue) { user in
+                guard let user = user else { return }
+                self.userProfile = user
+                
+                DispatchQueue.main.async {
+                    self.currentUser?.followsCount += 1
+                    self.profileCollectionView.reloadData()
+                }
+            }
+            
+        } else {
+            dataProvidersUser.follow(userProfile.id, queue: queue) { user in
+                guard let user = user else { return }
+                self.userProfile = user
+                
+                DispatchQueue.main.async {
+                    self.currentUser?.followsCount += 1
+                    self.profileCollectionView.reloadData()
+                }
+            }
+        }
     }
 }

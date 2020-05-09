@@ -12,6 +12,7 @@ import DataProvider
 protocol ProfileHeaderDelegate {
     func openFollowersList()
     func openFollowingList()
+    func followUnfollowUser()
 }
 
 final class ProfileHeaderCollectionReusableView: UICollectionReusableView {
@@ -20,12 +21,20 @@ final class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet private var fullNameLabel: UILabel!
     @IBOutlet private var followersLabel: UILabel!
     @IBOutlet private var followingLabel: UILabel!
+    @IBOutlet private var followButton: UIButton!
+    
+    var currentUser: User?
     
     var delegate: ProfileHeaderDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        dataProvidersUser.currentUser(queue: queue) { user in
+            self.currentUser = user
+        }
+        
+        followButton.layer.cornerRadius = 6
         setupTapGestureRecognizer()
     }
     
@@ -35,10 +44,33 @@ final class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         fullNameLabel.font = systemsFont
         fullNameLabel.text = user.fullName
         followersLabel.font = systemsBoldFont
-        followersLabel.text = "Followers: \(user.followsCount)"
+        followersLabel.text = "Followers: \(user.followedByCount)"
         followingLabel.font = systemsBoldFont
-        followingLabel.text = "Following: \(user.followedByCount)"
+        followingLabel.text = "Following: \(user.followsCount)"
+        
+        buttonDisplay(user: user)
+        
+        
     }
+    
+    func buttonDisplay(user: User) {
+        
+        if user.currentUserFollowsThisUser {
+            followButton.isHidden = false
+            followButton.setTitle("Unfollow", for: .normal)
+            followButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        } else {
+            followButton.isHidden = false
+            followButton.setTitle("Follow", for: .normal)
+            followButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        }
+        
+        if user.id == currentUser?.id {
+            followButton.isHidden = true
+        }
+    }
+    
+    
 }
 
 //MARK: Selector
@@ -50,6 +82,10 @@ extension ProfileHeaderCollectionReusableView {
     
     @objc func followingTap() {
         delegate?.openFollowingList()
+    }
+    
+    @IBAction func followButtonAction(_ sender: UIButton) {
+        delegate?.followUnfollowUser()
     }
 }
 

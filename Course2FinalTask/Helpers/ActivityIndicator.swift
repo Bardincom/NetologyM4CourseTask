@@ -18,22 +18,27 @@ public class ActivityIndicator {
     static var baseBackColor = UIColor(white: 0, alpha: 0.7)
     static var baseColor = UIColor.white
     
+   
     static func start(style: UIActivityIndicatorView.Style = style, backColor: UIColor = baseBackColor, baseColor: UIColor = baseColor) {
-        if activityIndicator == nil, let window = UIApplication.shared.keyWindow {
-            let frame = UIScreen.main.bounds
-            activityIndicator = UIActivityIndicatorView(frame: frame)
-            activityIndicator!.backgroundColor = backColor
-            activityIndicator!.style = style
-            activityIndicator?.color = baseColor
-            window.addSubview(activityIndicator!)
-            activityIndicator!.startAnimating()
+        DispatchQueue.main.async {
+              if activityIndicator == nil, let window = UIApplication.shared.keyWindow {
+                      let frame = UIScreen.main.bounds
+                      activityIndicator = UIActivityIndicatorView(frame: frame)
+                      
+                      activityIndicator?.backgroundColor = backColor
+                      activityIndicator?.style = style
+                      activityIndicator?.color = baseColor
+                      window.addSubview(activityIndicator!)
+                      activityIndicator?.startAnimating()
+                  }
         }
+      
     }
     
     static func stop() {
         if activityIndicator != nil {
-            activityIndicator!.stopAnimating()
-            activityIndicator!.removeFromSuperview()
+            activityIndicator?.stopAnimating()
+            activityIndicator?.removeFromSuperview()
             activityIndicator = nil
         }
     }

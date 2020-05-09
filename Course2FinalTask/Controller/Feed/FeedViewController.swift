@@ -108,9 +108,8 @@ extension FeedViewController: FeedCollectionViewProtocol {
             profileViewController.userProfile = user
             
             DispatchQueue.main.async {
-                ActivityIndicator.stop()
-              
                 self.navigationController?.pushViewController(profileViewController, animated: true)
+                ActivityIndicator.stop()
             }
         })
     }
