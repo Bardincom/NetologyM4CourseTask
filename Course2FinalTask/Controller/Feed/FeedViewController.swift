@@ -33,7 +33,7 @@ final class FeedViewController: UIViewController, NibInit {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dataProvidersPosts.feed(queue: queue) { [weak self] posts in
+        postsDataProviders.feed(queue: queue) { [weak self] posts in
             guard let posts = posts else { return }
             self?.postsArray = posts
             DispatchQueue.main.async {
@@ -102,7 +102,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
 
         let currentPost = postsArray[indexPath.row]
 
-        dataProvidersUser.user(with: currentPost.author, queue: queue, handler: { user in
+        userDataProviders.user(with: currentPost.author, queue: queue, handler: { user in
             guard let user = user else { return }
 
             profileViewController.userProfile = user
@@ -123,7 +123,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
         
         guard cell.likeButton.tintColor == lightGrayColor else {
             
-            dataProvidersPosts.unlikePost(with: postID, queue: queue) { unlikePost in
+            postsDataProviders.unlikePost(with: postID, queue: queue) { unlikePost in
                 self.post = unlikePost
             }
             
@@ -135,7 +135,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
             return
         }
         
-        dataProvidersPosts.likePost(with: postID, queue: queue) { post in
+        postsDataProviders.likePost(with: postID, queue: queue) { post in
             self.post = post
         }
         
@@ -154,7 +154,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
         
         let currentPostID = postsArray[indexPath.row].id
         
-        dataProvidersPosts.usersLikedPost(with: currentPostID, queue: queue) { usersArray in
+        postsDataProviders.usersLikedPost(with: currentPostID, queue: queue) { usersArray in
             guard let usersArray = usersArray else { return }
             userListViewController.usersList = usersArray
             

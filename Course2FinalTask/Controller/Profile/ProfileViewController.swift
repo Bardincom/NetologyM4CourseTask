@@ -32,7 +32,7 @@ final class ProfileViewController: UIViewController, NibInit {
         super.viewDidLoad()
         view.backgroundColor = viewBackgroundColor
         
-        dataProvidersUser.currentUser(queue: queue) { currentUser in
+        userDataProviders.currentUser(queue: queue) { currentUser in
             guard let currentUser = currentUser else { return }
             self.currentUser = currentUser
         }
@@ -41,6 +41,8 @@ final class ProfileViewController: UIViewController, NibInit {
         setupViewController()
         
     }
+    
+
 }
 
 //MARK: DataSourse
@@ -91,11 +93,8 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         
         guard let userProfile = userProfile else { return }
         /// установка Хедера
-        DispatchQueue.main.async {
-            view.setHeader(user: userProfile)
-            view.delegate = self
-        }
-        
+        view.setHeader(user: userProfile)
+        view.delegate = self
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -109,10 +108,10 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 extension ProfileViewController {
     
     func setupViewController() {
-        
+//        
         ActivityIndicator.start()
         if userProfile == nil {
-            dataProvidersUser.currentUser(queue: queue) { [weak self] user in
+            userDataProviders.currentUser(queue: queue) { [weak self] user in
                 guard let user = user else { return }
                 self?.userProfile = user
             }
@@ -126,7 +125,7 @@ extension ProfileViewController {
         
         guard let userProfile = userProfile?.id else { return }
         
-        dataProvidersPosts.findPosts(by: userProfile, queue: queue) { [weak self] post in
+        postsDataProviders.findPosts(by: userProfile, queue: queue) { [weak self] post in
             guard let post = post else { return }
             self?.postsProfile = post
             
@@ -137,7 +136,6 @@ extension ProfileViewController {
                 self?.tabBarItem.title = ControllerSet.profileViewController
                 self?.profileCollectionView.reloadData()
                 ActivityIndicator.stop()
-                
             }
         }
     }
@@ -153,7 +151,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
         let userListViewController = UserListViewController()
         
         guard let userID = userProfile?.id else { return }
-        dataProvidersUser.usersFollowingUser(with: userID, queue: queue) { users in
+        userDataProviders.usersFollowingUser(with: userID, queue: queue) { users in
             guard let users = users else { return }
             userListViewController.usersList = users
             
@@ -173,7 +171,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
         
         guard let userID = userProfile?.id else { return }
         
-        dataProvidersUser.usersFollowedByUser(with: userID, queue: queue, handler: { users in
+        userDataProviders.usersFollowedByUser(with: userID, queue: queue, handler: { users in
             guard let users = users else { return }
             
             userListViewController.usersList = users
@@ -192,7 +190,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
         guard let userProfile = userProfile else { return }
         print(userProfile.id)
         if userProfile.currentUserFollowsThisUser {
-            dataProvidersUser.unfollow(userProfile.id, queue: queue) { user in
+            userDataProviders.unfollow(userProfile.id, queue: queue) { user in
                 guard let user = user else { return }
                 self.userProfile = user
                 
@@ -203,7 +201,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
             }
             
         } else {
-            dataProvidersUser.follow(userProfile.id, queue: queue) { user in
+            userDataProviders.follow(userProfile.id, queue: queue) { user in
                 guard let user = user else { return }
                 self.userProfile = user
                 

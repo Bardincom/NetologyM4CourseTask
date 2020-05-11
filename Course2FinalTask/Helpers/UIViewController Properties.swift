@@ -22,7 +22,8 @@ enum NamesItemTitle {
    static let likes = "Likes"
    static let followers = "Followers"
    static let following = "Following"
-//   static let newPost = "New Post"
+   static let newPost = "New Post"
+   static let filters = "Filters"
 }
 
 

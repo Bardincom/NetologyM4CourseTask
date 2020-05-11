@@ -20,15 +20,24 @@ public let queue = DispatchQueue.global(qos: .userInitiated)
 //}
 
 
-func userNew(user: User?) {
-    
-}
+//func userNew(user: User?) {
+//    
+//}
 
 /// Поставщик публикаций
-public let dataProvidersPosts = DataProviders.shared.postsDataProvider
+public let postsDataProviders = DataProviders.shared.postsDataProvider
 
 /// Поставщик пользователей
-public let dataProvidersUser = DataProviders.shared.usersDataProvider
+public let userDataProviders = DataProviders.shared.usersDataProvider
+
+/// Поставщик фотографий для новых публикаций
+public let photoProvider = DataProviders.shared.photoProvider
+
+/// Фото для новых публикаций
+public var photoNewPosts = photoProvider.photos()
+
+/// Миниатюрные изображения для фильтра
+public var thumbnailPhotos = photoProvider.thumbnailPhotos()
 
 /// Текущий пользователь
 //public let currentUser: () = users.currentUser(queue: queue, handler: userHandler)

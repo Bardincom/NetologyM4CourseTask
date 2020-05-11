@@ -30,7 +30,7 @@ final class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        dataProvidersUser.currentUser(queue: queue) { user in
+        userDataProviders.currentUser(queue: queue) { user in
             self.currentUser = user
         }
         

@@ -25,14 +25,14 @@
 		A27133B12413B259007E13BC /* UserListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A27133AF2413B259007E13BC /* UserListViewController.xib */; };
 		A27133B62413B2B0007E13BC /* UserListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A27133B42413B2B0007E13BC /* UserListTableViewCell.xib */; };
 		A27133B82413BB16007E13BC /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27133B72413BB16007E13BC /* UITableView + Extension.swift */; };
+		A277FCE524694DF3008E14E7 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A277FCE324694DF3008E14E7 /* FiltersViewController.swift */; };
+		A277FCE624694DF3008E14E7 /* FiltersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A277FCE424694DF3008E14E7 /* FiltersViewController.xib */; };
 		A293F707240BB8EC003D5A96 /* UICollectionView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293F706240BB8EC003D5A96 /* UICollectionView + Extension.swift */; };
 		A293F70C240BE7A8003D5A96 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293F70A240BE7A8003D5A96 /* ProfileCollectionViewCell.swift */; };
 		A293F70D240BE7A8003D5A96 /* ProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A293F70B240BE7A8003D5A96 /* ProfileCollectionViewCell.xib */; };
 		A2AB4FFF2465B74B007BB8F9 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AB4FFE2465B74B007BB8F9 /* ActivityIndicator.swift */; };
 		A2C014E42454F228001A4894 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C014E22454F228001A4894 /* NewPostViewController.swift */; };
 		A2C014E52454F228001A4894 /* NewPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2C014E32454F228001A4894 /* NewPostViewController.xib */; };
-		A2C014E82454F26E001A4894 /* NewPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C014E62454F26E001A4894 /* NewPostCollectionViewCell.swift */; };
-		A2C014E92454F26E001A4894 /* NewPostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2C014E72454F26E001A4894 /* NewPostCollectionViewCell.xib */; };
 		A2DF35EE2405C2C0008A9CD7 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DF35EC2405C2C0008A9CD7 /* FeedCollectionViewCell.swift */; };
 		A2DF35EF2405C2C0008A9CD7 /* FeedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2DF35ED2405C2C0008A9CD7 /* FeedCollectionViewCell.xib */; };
 		A2F7486124041B2500396045 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = A2F7486024041B2500396045 /* .gitignore */; };
@@ -75,14 +75,14 @@
 		A27133B32413B2B0007E13BC /* UserListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTableViewCell.swift; sourceTree = "<group>"; };
 		A27133B42413B2B0007E13BC /* UserListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserListTableViewCell.xib; sourceTree = "<group>"; };
 		A27133B72413BB16007E13BC /* UITableView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extension.swift"; sourceTree = "<group>"; };
+		A277FCE324694DF3008E14E7 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
+		A277FCE424694DF3008E14E7 /* FiltersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FiltersViewController.xib; sourceTree = "<group>"; };
 		A293F706240BB8EC003D5A96 /* UICollectionView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView + Extension.swift"; sourceTree = "<group>"; };
 		A293F70A240BE7A8003D5A96 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		A293F70B240BE7A8003D5A96 /* ProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionViewCell.xib; sourceTree = "<group>"; };
 		A2AB4FFE2465B74B007BB8F9 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		A2C014E22454F228001A4894 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		A2C014E32454F228001A4894 /* NewPostViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewPostViewController.xib; sourceTree = "<group>"; };
-		A2C014E62454F26E001A4894 /* NewPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostCollectionViewCell.swift; sourceTree = "<group>"; };
-		A2C014E72454F26E001A4894 /* NewPostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewPostCollectionViewCell.xib; sourceTree = "<group>"; };
 		A2DF35EC2405C2C0008A9CD7 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2DF35ED2405C2C0008A9CD7 /* FeedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCollectionViewCell.xib; sourceTree = "<group>"; };
 		A2F7486024041B2500396045 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -210,6 +210,15 @@
 			path = UserListCell;
 			sourceTree = "<group>";
 		};
+		A277FCDE24694D88008E14E7 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				A277FCE324694DF3008E14E7 /* FiltersViewController.swift */,
+				A277FCE424694DF3008E14E7 /* FiltersViewController.xib */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
 		A293F703240B95ED003D5A96 /* FeedCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,20 +257,10 @@
 		A2C014DE2454F16F001A4894 /* NewPost */ = {
 			isa = PBXGroup;
 			children = (
-				A2C014DF2454F1CE001A4894 /* NewPostCell */,
 				A2C014E22454F228001A4894 /* NewPostViewController.swift */,
 				A2C014E32454F228001A4894 /* NewPostViewController.xib */,
 			);
 			path = NewPost;
-			sourceTree = "<group>";
-		};
-		A2C014DF2454F1CE001A4894 /* NewPostCell */ = {
-			isa = PBXGroup;
-			children = (
-				A2C014E62454F26E001A4894 /* NewPostCollectionViewCell.swift */,
-				A2C014E72454F26E001A4894 /* NewPostCollectionViewCell.xib */,
-			);
-			path = NewPostCell;
 			sourceTree = "<group>";
 		};
 		A2F7486224041F1700396045 /* Controller */ = {
@@ -269,8 +268,9 @@
 			children = (
 				A25E545C240C269F00478BC5 /* Feed */,
 				A25E545D240C26B500478BC5 /* Profile */,
-				A2C014DE2454F16F001A4894 /* NewPost */,
 				A27133AD2413B195007E13BC /*  UsersList */,
+				A2C014DE2454F16F001A4894 /* NewPost */,
+				A277FCDE24694D88008E14E7 /* Filters */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -336,7 +336,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A27133B62413B2B0007E13BC /* UserListTableViewCell.xib in Resources */,
-				A2C014E92454F26E001A4894 /* NewPostCollectionViewCell.xib in Resources */,
 				A2C014E52454F228001A4894 /* NewPostViewController.xib in Resources */,
 				A2F7486124041B2500396045 /* .gitignore in Resources */,
 				A2F7486624041F6200396045 /* FeedViewController.xib in Resources */,
@@ -346,6 +345,7 @@
 				A25E5463240C275200478BC5 /* ProfileHeaderCollectionReusableView.xib in Resources */,
 				A2DF35EF2405C2C0008A9CD7 /* FeedCollectionViewCell.xib in Resources */,
 				A2F7486C240420CF00396045 /* Launch Screen.storyboard in Resources */,
+				A277FCE624694DF3008E14E7 /* FiltersViewController.xib in Resources */,
 				74B7925F202B3254006BCB41 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +364,7 @@
 				A23BC8AA2419054400640E54 /* UIFont Properties.swift in Sources */,
 				A25685C024335B9400A09C0D /* UserListTableViewCell.swift in Sources */,
 				A25685BD2433307400A09C0D /* ProfileViewController.swift in Sources */,
+				A277FCE524694DF3008E14E7 /* FiltersViewController.swift in Sources */,
 				A25685BF24335B7F00A09C0D /* UserListViewController.swift in Sources */,
 				A27133B82413BB16007E13BC /* UITableView + Extension.swift in Sources */,
 				A27133AC240FC416007E13BC /* Date + Extension.swift in Sources */,
@@ -371,7 +372,6 @@
 				A293F70C240BE7A8003D5A96 /* ProfileCollectionViewCell.swift in Sources */,
 				A23BC8A82419046E00640E54 /* DataProvider Properties.swift in Sources */,
 				A2F7486524041F6200396045 /* FeedViewController.swift in Sources */,
-				A2C014E82454F26E001A4894 /* NewPostCollectionViewCell.swift in Sources */,
 				A27133AA240F7FB8007E13BC /* UIViewController Properties.swift in Sources */,
 				74B79258202B3254006BCB41 /* AppDelegate.swift in Sources */,
 				A2DF35EE2405C2C0008A9CD7 /* FeedCollectionViewCell.swift in Sources */,

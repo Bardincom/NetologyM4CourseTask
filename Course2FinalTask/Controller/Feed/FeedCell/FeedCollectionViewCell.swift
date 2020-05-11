@@ -45,7 +45,6 @@ final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
         
     }
     
-    
     /// настройка ленты
     func setupFeed(post: Post) {
         dateLabel.text = post.createdTime.displayDate()
