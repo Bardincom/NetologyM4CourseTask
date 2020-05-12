@@ -28,9 +28,7 @@ final class NewPostViewController: UIViewController, NibInit {
 extension NewPostViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
- 
-        print(photoNewPosts.count)
-        return photoNewPosts.count
+        photoNewPosts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

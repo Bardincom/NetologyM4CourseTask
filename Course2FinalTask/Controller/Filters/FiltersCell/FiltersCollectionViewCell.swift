@@ -13,15 +13,9 @@ class FiltersCollectionViewCell: UICollectionViewCell {
     @IBOutlet var thumbnailPhoto: UIImageView!
     @IBOutlet var filterNameLabel: UILabel!
 
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
     
-    func setFilter(_ name: String) {
-//        thumbnailPhoto.image = image
-        
-        thumbnailPhoto.backgroundColor = .yellow
+    func setFilter(_ name: String, for photo: UIImage) {
+        thumbnailPhoto.image = photo.resizedImage()
         filterNameLabel.text = name
     }
 

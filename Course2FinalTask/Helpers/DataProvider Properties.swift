@@ -36,8 +36,7 @@ public let photoProvider = DataProviders.shared.photoProvider
 /// Фото для новых публикаций
 public var photoNewPosts = photoProvider.photos()
 
-/// Миниатюрные изображения для фильтра
-public var thumbnailPhotos = photoProvider.thumbnailPhotos()
+
 
 /// Текущий пользователь
 //public let currentUser: () = users.currentUser(queue: queue, handler: userHandler)

@@ -37,9 +37,11 @@ extension FiltersViewController: UICollectionViewDelegateFlowLayout {
                    assertionFailure()
                    return
                }
-
+        
+        guard let thumbnailPhotos = selectPhoto else { return }
         let filterName = filters.filterArray[indexPath.row]
-        cell.setFilter(filterName)
+        
+        cell.setFilter(filterName, for: thumbnailPhotos)
     }
     
     /// отступ между ячейками
@@ -55,6 +57,4 @@ extension FiltersViewController: UICollectionViewDataSource  {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeue(cell: FiltersCollectionViewCell.self, for: indexPath)
     }
-    
-    
 }
