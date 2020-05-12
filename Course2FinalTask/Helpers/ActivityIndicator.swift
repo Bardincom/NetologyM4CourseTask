@@ -17,7 +17,6 @@ public class ActivityIndicator {
     static var style: UIActivityIndicatorView.Style = .white
     static var baseBackColor = UIColor(white: 0, alpha: 0.7)
     static var baseColor = UIColor.white
-    
    
     static func start(style: UIActivityIndicatorView.Style = style, backColor: UIColor = baseBackColor, baseColor: UIColor = baseColor) {
         DispatchQueue.main.async {
@@ -32,7 +31,6 @@ public class ActivityIndicator {
                       activityIndicator?.startAnimating()
                   }
         }
-      
     }
     
     static func stop() {

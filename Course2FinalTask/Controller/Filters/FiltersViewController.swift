@@ -14,12 +14,12 @@ class FiltersViewController: UIViewController {
     
     @IBOutlet private var filterViewController: UICollectionView! {
            willSet{
-               newValue.register(nibCell: ProfileCollectionViewCell.self)
+               newValue.register(nibCell: FiltersCollectionViewCell.self)
            }
        }
     
     public var selectPhoto: UIImage?
-    
+    let filters = Filters()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,19 +32,28 @@ class FiltersViewController: UIViewController {
 }
 
 extension FiltersViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+         guard let cell = cell as? FiltersCollectionViewCell else {
+                   assertionFailure()
+                   return
+               }
+
+        let filterName = filters.filterArray[indexPath.row]
+        cell.setFilter(filterName)
+    }
     
+    /// отступ между ячейками
+      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 16 }
 }
 
 extension FiltersViewController: UICollectionViewDataSource  {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        print(thumbnailPhotos.count)
-        return 1
+        return filters.filterArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeue(cell: ProfileCollectionViewCell.self, for: indexPath)
- 
+        return collectionView.dequeue(cell: FiltersCollectionViewCell.self, for: indexPath)
     }
     
     
