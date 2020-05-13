@@ -31,6 +31,7 @@
 		A277FCEB2469B7E4008E14E7 /* FiltersCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A277FCE92469B7E4008E14E7 /* FiltersCollectionViewCell.xib */; };
 		A277FCED246AE300008E14E7 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A277FCEC246AE300008E14E7 /* Filters.swift */; };
 		A277FCEF246B068E008E14E7 /* UIImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A277FCEE246B068D008E14E7 /* UIImage + Extension.swift */; };
+		A277FCF1246B0B68008E14E7 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A277FCF0246B0B68008E14E7 /* ImageFilter.swift */; };
 		A293F707240BB8EC003D5A96 /* UICollectionView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293F706240BB8EC003D5A96 /* UICollectionView + Extension.swift */; };
 		A293F70C240BE7A8003D5A96 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293F70A240BE7A8003D5A96 /* ProfileCollectionViewCell.swift */; };
 		A293F70D240BE7A8003D5A96 /* ProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A293F70B240BE7A8003D5A96 /* ProfileCollectionViewCell.xib */; };
@@ -85,6 +86,7 @@
 		A277FCE92469B7E4008E14E7 /* FiltersCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FiltersCollectionViewCell.xib; sourceTree = "<group>"; };
 		A277FCEC246AE300008E14E7 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		A277FCEE246B068D008E14E7 /* UIImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extension.swift"; sourceTree = "<group>"; };
+		A277FCF0246B0B68008E14E7 /* ImageFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilter.swift; sourceTree = "<group>"; };
 		A293F706240BB8EC003D5A96 /* UICollectionView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView + Extension.swift"; sourceTree = "<group>"; };
 		A293F70A240BE7A8003D5A96 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		A293F70B240BE7A8003D5A96 /* ProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				A277FCE72469B7AF008E14E7 /* FiltersCell */,
 				A277FCE324694DF3008E14E7 /* FiltersViewController.swift */,
 				A277FCE424694DF3008E14E7 /* FiltersViewController.xib */,
+				A277FCF0246B0B68008E14E7 /* ImageFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				A25685C024335B9400A09C0D /* UserListTableViewCell.swift in Sources */,
 				A25685BD2433307400A09C0D /* ProfileViewController.swift in Sources */,
 				A277FCE524694DF3008E14E7 /* FiltersViewController.swift in Sources */,
+				A277FCF1246B0B68008E14E7 /* ImageFilter.swift in Sources */,
 				A25685BF24335B7F00A09C0D /* UserListViewController.swift in Sources */,
 				A27133B82413BB16007E13BC /* UITableView + Extension.swift in Sources */,
 				A27133AC240FC416007E13BC /* Date + Extension.swift in Sources */,

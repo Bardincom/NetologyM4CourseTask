@@ -42,7 +42,7 @@ final class ProfileViewController: UIViewController, NibInit {
         
     }
     
-
+    
 }
 
 //MARK: DataSourse
@@ -108,7 +108,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 extension ProfileViewController {
     
     func setupViewController() {
-//        
+        
         ActivityIndicator.start()
         if userProfile == nil {
             userDataProviders.currentUser(queue: queue) { [weak self] user in

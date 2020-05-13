@@ -21,7 +21,6 @@ final class NewPostViewController: UIViewController, NibInit {
         super.viewDidLoad()
         navigationItem.title = NamesItemTitle.newPost
     }
-    
 }
 
 
@@ -34,8 +33,6 @@ extension NewPostViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeue(cell: ProfileCollectionViewCell.self, for: indexPath)
     }
-    
-    
 }
 
 
@@ -57,9 +54,7 @@ extension NewPostViewController: UICollectionViewDelegateFlowLayout {
     }
     
     /// убираю отступ между ячейками
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        0
-    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 0 }
 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

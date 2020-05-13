@@ -13,48 +13,68 @@ class FiltersViewController: UIViewController {
     @IBOutlet var bigImage: UIImageView!
     
     @IBOutlet private var filterViewController: UICollectionView! {
-           willSet{
-               newValue.register(nibCell: FiltersCollectionViewCell.self)
-           }
-       }
+        willSet{
+            newValue.register(nibCell: FiltersCollectionViewCell.self)
+        }
+    }
     
     public var selectPhoto: UIImage?
-    let filters = Filters()
-
+    
+    let filters = Filters().filterArray
+    
+    let operationQueue = OperationQueue()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         bigImage.image = selectPhoto
         title = NamesItemTitle.filters
     }
-    
-    
 }
 
 extension FiltersViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-         guard let cell = cell as? FiltersCollectionViewCell else {
-                   assertionFailure()
-                   return
-               }
+        guard let cell = cell as? FiltersCollectionViewCell else {
+            assertionFailure()
+            return
+        }
         
         guard let thumbnailPhotos = selectPhoto else { return }
-        let filterName = filters.filterArray[indexPath.row]
+        let filterName = filters[indexPath.row]
         
         cell.setFilter(filterName, for: thumbnailPhotos)
     }
     
     /// отступ между ячейками
-      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 16 }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 16 }
 }
 
 extension FiltersViewController: UICollectionViewDataSource  {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filters.filterArray.count
+        return filters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeue(cell: FiltersCollectionViewCell.self, for: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        ActivityIndicator.start()
+        let selectFilter = filters[indexPath.row]
+        
+        let applyFilter = ImageFilterOperation(inputImage: selectPhoto, filter: selectFilter)
+        
+        applyFilter.completionBlock = { [weak self] in
+            guard let self = self else { return }
+            
+            OperationQueue.main.addOperation {
+                self.bigImage.image = applyFilter.outputImage
+                ActivityIndicator.stop()
+            }
+        }
+        
+        operationQueue.addOperation(applyFilter)
     }
 }

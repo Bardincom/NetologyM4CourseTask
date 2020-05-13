@@ -11,7 +11,7 @@ import UIKit
 //https://stackoverflow.com/questions/31314412/how-to-resize-image-in-swift
 
 extension UIImage {
-    /// Изменяет размер фотографии до размера 50x50 px
+    /// Изменяет фотографию до размера 50x50 px
     public func resizedImage() -> UIImage? {
         let newSize = CGSize(width: 50, height: 50)
         UIGraphicsBeginImageContextWithOptions(newSize, true, 0.0)
