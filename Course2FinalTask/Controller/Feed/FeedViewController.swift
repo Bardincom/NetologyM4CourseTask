@@ -14,8 +14,7 @@ final class FeedViewController: UIViewController, NibInit {
     
     private var postsArray: [Post] = []
     private var post: Post?
-    @IBOutlet var feedUIActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet var feedUIViewActivity: UIView!
+    var newPost: ((Post) -> ())?
     
     @IBOutlet weak private var feedCollectionView: UICollectionView!
         {
@@ -32,19 +31,26 @@ final class FeedViewController: UIViewController, NibInit {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // сюда попадает новая публикация и размещается вверху ленты
+        newPost = { [weak self] post in
+                      self?.postsArray.insert(post, at: 0)
+                      // переходим в начало Ленты
+                      self?.feedCollectionView.scrollToItem(at: IndexPath.init(item: 0, section: 0), at: .top, animated: true)
+                      self?.feedCollectionView.reloadData()
+                      }
+        
         postsDataProviders.feed(queue: queue) { [weak self] posts in
             guard let posts = posts else { return }
             self?.postsArray = posts
+            
             DispatchQueue.main.async {
-
                 self?.feedCollectionView.reloadData()
             }
         }
-        navigationController?.navigationBar.isTranslucent = false
-        title = ControllerSet.feedViewController
         
+        title = ControllerSet.feedViewController
     }
+    
 }
 
 //MARK: DataSource
@@ -72,6 +78,7 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         
         cell.setupFeed(post: post)
         cell.delegate = self
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -96,15 +103,16 @@ extension FeedViewController: FeedCollectionViewProtocol {
     func openUserProfile(cell: FeedCollectionViewCell) {
         
         ActivityIndicator.start()
-       
-        let profileViewController = ProfileViewController.initFromNib()
+        
+        let profileViewController = ProfileViewController()
+        
         guard let indexPath = feedCollectionView.indexPath(for: cell) else { return }
-
+        
         let currentPost = postsArray[indexPath.row]
-
+        
         userDataProviders.user(with: currentPost.author, queue: queue, handler: { user in
             guard let user = user else { return }
-
+            
             profileViewController.userProfile = user
             
             DispatchQueue.main.async {
@@ -131,7 +139,6 @@ extension FeedViewController: FeedCollectionViewProtocol {
             postsArray[indexPath.row].likedByCount -= 1
             cell.tintColor = lightGrayColor
             self.feedCollectionView.reloadData()
-            
             return
         }
         

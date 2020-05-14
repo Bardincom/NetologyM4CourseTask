@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,8 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FeedViewController" customModule="Course3FinalTask" customModuleProvider="target">
             <connections>
                 <outlet property="feedCollectionView" destination="Zsh-J8-4qL" id="zyl-F2-DPV"/>
-                <outlet property="feedUIActivityIndicator" destination="ANq-tC-ssp" id="TzN-k2-iPa"/>
-                <outlet property="feedUIViewActivity" destination="FPh-kq-jf3" id="iLN-Eu-Z7f"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -35,33 +34,21 @@
                         <outlet property="delegate" destination="-1" id="igo-ys-VbT"/>
                     </connections>
                 </collectionView>
-                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPh-kq-jf3">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ANq-tC-ssp">
-                            <rect key="frame" x="141.5" y="265.5" width="37" height="37"/>
-                            <color key="color" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </activityIndicatorView>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="ANq-tC-ssp" firstAttribute="centerY" secondItem="FPh-kq-jf3" secondAttribute="centerY" id="P0V-kB-97t"/>
-                        <constraint firstItem="ANq-tC-ssp" firstAttribute="centerX" secondItem="FPh-kq-jf3" secondAttribute="centerX" id="u6B-Rs-ddW"/>
-                    </constraints>
-                </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" name="viewBackgroundColor"/>
             <constraints>
-                <constraint firstItem="FPh-kq-jf3" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="0dD-6C-JUo"/>
                 <constraint firstItem="Zsh-J8-4qL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Jty-l0-miw"/>
                 <constraint firstItem="Zsh-J8-4qL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="UaM-zh-vYC"/>
-                <constraint firstItem="FPh-kq-jf3" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="WHn-1R-rZD"/>
-                <constraint firstItem="FPh-kq-jf3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="c2b-bs-QbK"/>
                 <constraint firstItem="Zsh-J8-4qL" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="fI2-qS-fGY"/>
                 <constraint firstItem="Zsh-J8-4qL" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="pCe-rr-R34"/>
-                <constraint firstItem="FPh-kq-jf3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="s0f-ZM-ckW"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138.75" y="136.26760563380282"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="viewBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

@@ -13,7 +13,7 @@ final class ProfileViewController: UIViewController, NibInit {
     
     var userProfile: User? {
         didSet {
-            setupViewController()
+            setupProfileViewController()
         }
     }
     
@@ -30,19 +30,20 @@ final class ProfileViewController: UIViewController, NibInit {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = viewBackgroundColor
         
-        userDataProviders.currentUser(queue: queue) { currentUser in
+        userDataProviders.currentUser(queue: queue) { [weak self] currentUser in
             guard let currentUser = currentUser else { return }
-            self.currentUser = currentUser
+            self?.currentUser = currentUser
+            
+//            DispatchQueue.main.async {
+//                self?.profileCollectionView.reloadData()
+//            }
         }
         
-        
-        setupViewController()
-        
+        setupProfileViewController()
     }
-    
-    
 }
 
 //MARK: DataSourse
@@ -107,7 +108,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 //MARK: setViewController
 extension ProfileViewController {
     
-    func setupViewController() {
+    func setupProfileViewController() {
         
         ActivityIndicator.start()
         if userProfile == nil {

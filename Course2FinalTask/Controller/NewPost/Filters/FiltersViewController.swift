@@ -27,8 +27,7 @@ class FiltersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bigImage.image = selectPhoto
-        title = NamesItemTitle.filters
+        setupFiltersViewController()
     }
 }
 
@@ -76,5 +75,24 @@ extension FiltersViewController: UICollectionViewDataSource  {
         }
         
         operationQueue.addOperation(applyFilter)
+    }
+}
+
+
+private extension FiltersViewController {
+    
+    func setupFiltersViewController() {
+        navigationItem.rightBarButtonItem = .init(title: "Next", style: .plain, target: self, action: #selector(pressNextButton(_:)))
+        bigImage.image = selectPhoto
+        title = NamesItemTitle.filters
+    }
+    
+    
+    
+    @objc func pressNextButton(_ sender: UITapGestureRecognizer) {
+        let descriptionScreenViewController = DescriptionScreenViewController()
+        guard let publishedPhoto = bigImage.image else { return  }
+        descriptionScreenViewController.newPublishedPhoto = publishedPhoto
+        self.navigationController?.pushViewController(descriptionScreenViewController, animated: true)
     }
 }

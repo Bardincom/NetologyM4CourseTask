@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DataProvider
 
 final class NewPostViewController: UIViewController, NibInit {
     
@@ -34,7 +33,6 @@ extension NewPostViewController: UICollectionViewDataSource {
         return collectionView.dequeue(cell: ProfileCollectionViewCell.self, for: indexPath)
     }
 }
-
 
 extension NewPostViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

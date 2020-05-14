@@ -1,5 +1,5 @@
 //
-//  ImageFilter.swift
+//  ImageFilterOperation.swift
 //  Course3FinalTask
 //
 //  Created by Aleksey Bardin on 12.05.2020.
