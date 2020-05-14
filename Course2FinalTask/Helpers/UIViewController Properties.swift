@@ -12,13 +12,13 @@ let imageFeedViewController = #imageLiteral(resourceName: "feed")
 let imageProfileViewController = #imageLiteral(resourceName: "profile")
 let imageNewPostViewController = #imageLiteral(resourceName: "plus")
 
-enum ControllerSet {
+public enum ControllerSet {
     static let feedViewController = "Feed"
     static let profileViewController = "Profile"
     static let newPostViewController = "New"
 }
 
-enum NamesItemTitle {
+public enum NamesItemTitle {
    static let likes = "Likes"
    static let followers = "Followers"
    static let following = "Following"

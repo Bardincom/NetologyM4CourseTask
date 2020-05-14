@@ -41,7 +41,9 @@ extension DescriptionScreenViewController {
         guard let newPublishedPhoto = newPublishedPhoto, let descriptionText = descriptionText.text else { return }
         guard let feedPost = feedViewController.newPost else { return }
         postsDataProviders.newPost(with: newPublishedPhoto, description: descriptionText, queue: queue) { newPost in
-            guard let newPost = newPost else { return }
+            guard let newPost = newPost else {
+                self.displayAlert()
+                return }
             
             DispatchQueue.main.async {
                 feedPost(newPost)

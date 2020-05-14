@@ -47,6 +47,7 @@
 		A2F7486624041F6200396045 /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F7486424041F6200396045 /* FeedViewController.xib */; };
 		A2F7486A24041F7700396045 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F7486824041F7700396045 /* ProfileViewController.xib */; };
 		A2F7486C240420CF00396045 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2F7486B240420CF00396045 /* Launch Screen.storyboard */; };
+		A2FE06AB246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE06AA246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -105,6 +106,7 @@
 		A2F7486724041F7700396045 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A2F7486824041F7700396045 /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		A2F7486B240420CF00396045 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		A2FE06AA246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UI ViewController + Extension Alerts.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				A27133A9240F7FB8007E13BC /* UIViewController Properties.swift */,
-				A2AB4FFE2465B74B007BB8F9 /* ActivityIndicator.swift */,
 				A23BC8A52418FF3700640E54 /* UIColor Properties.swift */,
 				A23BC8A92419054400640E54 /* UIFont Properties.swift */,
 				A23BC8A72419046E00640E54 /* DataProvider Properties.swift */,
@@ -269,6 +270,8 @@
 				A2473B9D240825D600623034 /* NibInit.swift */,
 				A277FCEC246AE300008E14E7 /* Filters.swift */,
 				A277FCEE246B068D008E14E7 /* UIImage + Extension.swift */,
+				A2AB4FFE2465B74B007BB8F9 /* ActivityIndicator.swift */,
+				A2FE06AA246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				A277FCE524694DF3008E14E7 /* FiltersViewController.swift in Sources */,
 				A277FCF1246B0B68008E14E7 /* ImageFilterOperation.swift in Sources */,
 				A25685BF24335B7F00A09C0D /* UserListViewController.swift in Sources */,
+				A2FE06AB246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift in Sources */,
 				A277FCF5246C1B57008E14E7 /* DescriptionScreenViewController.swift in Sources */,
 				A27133B82413BB16007E13BC /* UITableView + Extension.swift in Sources */,
 				A27133AC240FC416007E13BC /* Date + Extension.swift in Sources */,

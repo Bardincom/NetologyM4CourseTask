@@ -38,12 +38,15 @@ final class FeedViewController: UIViewController, NibInit {
                       self?.feedCollectionView.scrollToItem(at: IndexPath.init(item: 0, section: 0), at: .top, animated: true)
                       self?.feedCollectionView.reloadData()
                       }
-        
+       
         postsDataProviders.feed(queue: queue) { [weak self] posts in
-            guard let posts = posts else { return }
+            guard let posts = posts else {
+                self?.displayAlert()
+                return }
             self?.postsArray = posts
             
             DispatchQueue.main.async {
+             
                 self?.feedCollectionView.reloadData()
             }
         }
@@ -111,11 +114,14 @@ extension FeedViewController: FeedCollectionViewProtocol {
         let currentPost = postsArray[indexPath.row]
         
         userDataProviders.user(with: currentPost.author, queue: queue, handler: { user in
-            guard let user = user else { return }
+            guard let user = user else {
+                self.displayAlert()
+                return }
             
             profileViewController.userProfile = user
             
             DispatchQueue.main.async {
+               
                 self.navigationController?.pushViewController(profileViewController, animated: true)
                 ActivityIndicator.stop()
             }
@@ -149,6 +155,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
         postsArray[indexPath.row].currentUserLikesThisPost = true
         postsArray[indexPath.row].likedByCount += 1
         cell.tintColor = defaultTintColor
+       
         self.feedCollectionView.reloadData()
     }
     
@@ -162,7 +169,9 @@ extension FeedViewController: FeedCollectionViewProtocol {
         let currentPostID = postsArray[indexPath.row].id
         
         postsDataProviders.usersLikedPost(with: currentPostID, queue: queue) { usersArray in
-            guard let usersArray = usersArray else { return }
+            guard let usersArray = usersArray else {
+                self.displayAlert()
+                return }
             userListViewController.usersList = usersArray
             
             DispatchQueue.main.async {

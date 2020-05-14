@@ -32,14 +32,12 @@ final class ProfileViewController: UIViewController, NibInit {
         super.viewDidLoad()
         
         view.backgroundColor = viewBackgroundColor
-        
         userDataProviders.currentUser(queue: queue) { [weak self] currentUser in
-            guard let currentUser = currentUser else { return }
+            guard let currentUser = currentUser else {
+                self?.displayAlert()
+                return }
             self?.currentUser = currentUser
             
-//            DispatchQueue.main.async {
-//                self?.profileCollectionView.reloadData()
-//            }
         }
         
         setupProfileViewController()
@@ -113,7 +111,9 @@ extension ProfileViewController {
         ActivityIndicator.start()
         if userProfile == nil {
             userDataProviders.currentUser(queue: queue) { [weak self] user in
-                guard let user = user else { return }
+                guard let user = user else {
+                    self?.displayAlert()
+                    return }
                 self?.userProfile = user
             }
             
@@ -127,7 +127,9 @@ extension ProfileViewController {
         guard let userProfile = userProfile?.id else { return }
         
         postsDataProviders.findPosts(by: userProfile, queue: queue) { [weak self] post in
-            guard let post = post else { return }
+            guard let post = post else {
+                self?.displayAlert()
+                return }
             self?.postsProfile = post
             
             DispatchQueue.main.async {
@@ -153,7 +155,9 @@ extension ProfileViewController: ProfileHeaderDelegate {
         
         guard let userID = userProfile?.id else { return }
         userDataProviders.usersFollowingUser(with: userID, queue: queue) { users in
-            guard let users = users else { return }
+            guard let users = users else {
+                self.displayAlert()
+                return }
             userListViewController.usersList = users
             
             DispatchQueue.main.async {
@@ -173,7 +177,9 @@ extension ProfileViewController: ProfileHeaderDelegate {
         guard let userID = userProfile?.id else { return }
         
         userDataProviders.usersFollowedByUser(with: userID, queue: queue, handler: { users in
-            guard let users = users else { return }
+            guard let users = users else {
+                self.displayAlert()
+                return }
             
             userListViewController.usersList = users
             
@@ -192,7 +198,9 @@ extension ProfileViewController: ProfileHeaderDelegate {
         print(userProfile.id)
         if userProfile.currentUserFollowsThisUser {
             userDataProviders.unfollow(userProfile.id, queue: queue) { user in
-                guard let user = user else { return }
+                guard let user = user else {
+                    self.displayAlert()
+                    return }
                 self.userProfile = user
                 
                 DispatchQueue.main.async {
@@ -203,7 +211,9 @@ extension ProfileViewController: ProfileHeaderDelegate {
             
         } else {
             userDataProviders.follow(userProfile.id, queue: queue) { user in
-                guard let user = user else { return }
+                guard let user = user else {
+                    self.displayAlert()
+                    return }
                 self.userProfile = user
                 
                 DispatchQueue.main.async {
