@@ -32,19 +32,7 @@ class FiltersViewController: UIViewController {
 }
 
 extension FiltersViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? FiltersCollectionViewCell else {
-            assertionFailure()
-            return
-        }
         
-        guard let thumbnailPhotos = selectPhoto else { return }
-        let filterName = filters[indexPath.row]
-        
-        cell.setFilter(filterName, for: thumbnailPhotos)
-    }
-    
     /// отступ между ячейками
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 16 }
 }
@@ -55,8 +43,15 @@ extension FiltersViewController: UICollectionViewDataSource  {
         return filters.count
     }
     
+    /// для более плавной загрузки фильтров перенесено в этот метод
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeue(cell: FiltersCollectionViewCell.self, for: indexPath)
+        let cell = collectionView.dequeue(cell: FiltersCollectionViewCell.self, for: indexPath)
+        
+        guard let thumbnailPhotos = selectPhoto else { return cell}
+        let filterName = filters[indexPath.row]
+        
+        cell.setFilter(filterName, for: thumbnailPhotos)
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

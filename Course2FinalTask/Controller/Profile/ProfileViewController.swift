@@ -42,6 +42,7 @@ final class ProfileViewController: UIViewController, NibInit {
         
         setupProfileViewController()
     }
+    
 }
 
 //MARK: DataSourse
@@ -52,16 +53,32 @@ extension ProfileViewController: UICollectionViewDataSource {
         return postsProfile.count
     }
     
+    /// установка изображений
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeue(cell: ProfileCollectionViewCell.self, for: indexPath)
+        let cell = collectionView.dequeue(cell: ProfileCollectionViewCell.self, for: indexPath)
+        
+        guard let postsProfile = postsProfile else { return cell}
+        let post = postsProfile[indexPath.row]
+        
+        cell.setImageCell(post: post)
+        
+        return cell
     }
     
+    /// устновка Хедера
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         
-        return collectionView.dequeue(supplementaryView: ProfileHeaderCollectionReusableView.self,
-                                      kind: kind, for: indexPath)
+        let view =  collectionView.dequeue(supplementaryView: ProfileHeaderCollectionReusableView.self,
+                                           kind: kind, for: indexPath)
+        
+        guard let userProfile = userProfile else { return view}
+        
+        view.setHeader(user: userProfile)
+        view.delegate = self
+        
+        return view
     }
     
     /// задаю размеры Header
@@ -72,30 +89,7 @@ extension ProfileViewController: UICollectionViewDataSource {
 
 //MARK: Delegate FlowLayout
 extension ProfileViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? ProfileCollectionViewCell else {
-            assertionFailure()
-            return
-        }
-        
-        guard let postsProfile = postsProfile else { return }
-        let post = postsProfile[indexPath.row]
-        /// установка изображений
-        cell.setImageCell(post: post)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        guard let view = view as? ProfileHeaderCollectionReusableView else {
-            assertionFailure()
-            return  }
-        
-        guard let userProfile = userProfile else { return }
-        /// установка Хедера
-        view.setHeader(user: userProfile)
-        view.delegate = self
-    }
-    
+ 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = profileCollectionView.bounds.width / 3
         return CGSize(width: size, height: size)
@@ -195,7 +189,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
     func followUnfollowUser() {
         
         guard let userProfile = userProfile else { return }
-        print(userProfile.id)
+        
         if userProfile.currentUserFollowsThisUser {
             userDataProviders.unfollow(userProfile.id, queue: queue) { user in
                 guard let user = user else {

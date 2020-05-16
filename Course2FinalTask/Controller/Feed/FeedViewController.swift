@@ -64,25 +64,18 @@ extension FeedViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        return collectionView.dequeue(cell: FeedCollectionViewCell.self, for: indexPath)
-    }
-}
-
-//MARK: DelegateFlowLayout
-extension FeedViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? FeedCollectionViewCell else {
-            assertionFailure()
-            return
-        }
-        
+        let cell = collectionView.dequeue(cell: FeedCollectionViewCell.self, for: indexPath)
         let post = postsArray[indexPath.row]
         
         cell.setupFeed(post: post)
         cell.delegate = self
         
+        return cell
     }
+}
+
+//MARK: DelegateFlowLayout
+extension FeedViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width

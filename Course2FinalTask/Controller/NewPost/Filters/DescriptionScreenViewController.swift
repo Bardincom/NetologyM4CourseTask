@@ -23,7 +23,6 @@ class DescriptionScreenViewController: UIViewController {
     }
 }
 
-
 extension DescriptionScreenViewController {
     
     func setupFiltersViewController() {
@@ -47,10 +46,12 @@ extension DescriptionScreenViewController {
             
             DispatchQueue.main.async {
                 feedPost(newPost)
+                
                 // переключает tabBar на первую вкладку для отображения экрана feed
                 self.tabBarController?.selectedViewController = navigationController
                 // сбрасывает стэк текущего navigationController до корневого контроллера
-                navigationController.popToRootViewController(animated: true)
+                self.navigationController?.popToRootViewController(animated: true)
+               
                 ActivityIndicator.stop()
  
             }

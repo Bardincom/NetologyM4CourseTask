@@ -37,21 +37,26 @@ extension UserListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeue(reusable: UserListTableViewCell.self, for: indexPath)
+        let cell = tableView.dequeue(reusable: UserListTableViewCell.self, for: indexPath)
+        
+        let user = selectUsers(users: usersList)[indexPath.row]
+        cell.setupList(user: user)
+        
+        return cell
     }
 }
 
 //MARK: Delegate
 extension UserListViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = cell as? UserListTableViewCell else {
-            assertionFailure()
-            return }
-        
-        let user = selectUsers(users: usersList)[indexPath.row]
-        cell.setupList(user: user)
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        guard let cell = cell as? UserListTableViewCell else {
+//            assertionFailure()
+//            return }
+//        
+//        let user = selectUsers(users: usersList)[indexPath.row]
+//        cell.setupList(user: user)
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectUser = selectUsers(users: usersList)[indexPath.row]

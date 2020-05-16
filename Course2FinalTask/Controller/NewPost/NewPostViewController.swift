@@ -30,21 +30,26 @@ extension NewPostViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeue(cell: ProfileCollectionViewCell.self, for: indexPath)
-    }
-}
-
-extension NewPostViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? ProfileCollectionViewCell else {
-            assertionFailure()
-            return
-        }
+        let cell = collectionView.dequeue(cell: ProfileCollectionViewCell.self, for: indexPath)
         
         let photo = photoNewPosts[indexPath.row]
         /// установка изображений
         cell.imageView(newPhoto: photo)
+        return cell
     }
+}
+
+extension NewPostViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let cell = cell as? ProfileCollectionViewCell else {
+//            assertionFailure()
+//            return
+//        }
+//        
+//        let photo = photoNewPosts[indexPath.row]
+//        /// установка изображений
+//        cell.imageView(newPhoto: photo)
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = newPostViewController.bounds.width / 3
