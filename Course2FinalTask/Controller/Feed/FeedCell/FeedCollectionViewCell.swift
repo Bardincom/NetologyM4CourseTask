@@ -9,14 +9,14 @@
 import UIKit
 import DataProvider
 
-protocol FeedCollectionViewProtocol {
+protocol FeedCollectionViewProtocol: class {
     func openUserProfile(cell: FeedCollectionViewCell)
     func likePost(cell: FeedCollectionViewCell)
     func userList(cell: FeedCollectionViewCell)
 }
 
 final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
-    
+
     @IBOutlet var likeButton: UIButton!
     @IBOutlet private var userNameLabel: UILabel!
     @IBOutlet private var dateLabel: UILabel!
@@ -26,25 +26,25 @@ final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var containerStackView: UIStackView!
     @IBOutlet var feedActivityIndicatorView: UIActivityIndicatorView!
-    
+
     @IBOutlet private var bigLike: UIImageView!
-    
+
     @IBOutlet private var cellConstraintsWidthConstraint: NSLayoutConstraint! {
         willSet {
             newValue.constant = UIScreen.main.bounds.width
         }
     }
-    
-    var delegate: FeedCollectionViewProtocol?
-    
+
+    weak var delegate: FeedCollectionViewProtocol?
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         setupFonts()
         setupTapGestureRecognizer()
-        
+
     }
-    
+
     /// настройка ленты
     func setupFeed(post: Post) {
         dateLabel.text = post.createdTime.displayDate()
@@ -53,7 +53,7 @@ final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
         imageView.image = post.image
         likesLabel.text = "Likes: " + "\(post.likedByCount)"
         descriptionLabel.text = post.description
-        
+
         /// отображение лайка на публикации текущего пользователя
         guard post.currentUserLikesThisPost else {
             likeButton.tintColor = lightGrayColor
@@ -61,42 +61,52 @@ final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
         }
         likeButton.tintColor = defaultTintColor
     }
-    
+
 }
 
-//MARK: Selector
+// MARK: Selector
 extension FeedCollectionViewCell {
-    
-    @objc private func goToProfile() {
+
+    @objc
+    private func goToProfile() {
         delegate?.openUserProfile(cell: self)
     }
-    
-    @objc private func likeTap() {
+
+    @objc
+    private func likeTap() {
         delegate?.likePost(cell: self)
     }
-    
-    @objc private func openLikeList() {
+
+    @objc
+    private func openLikeList() {
         delegate?.userList(cell: self)
     }
-    
-    @objc private func doudleLikeTap() {
-        UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveLinear], animations: {
+
+    @objc
+    private func doudleLikeTap() {
+        UIView.animate(withDuration: 0.1,
+                       delay: 0.0,
+                       options: [.curveLinear],
+                       animations: {
             self.bigLike.alpha = 1.0
         }, completion: {_ in
-            UIView.animate(withDuration: 0.3, delay: 0.2, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.3,
+                           delay: 0.2,
+                           options: [.curveEaseOut],
+                           animations: {
                 self.bigLike.alpha = 0
             }, completion: nil)
         })
-        
+
         if likeButton.tintColor == lightGrayColor {
             delegate?.likePost(cell: self)
         }
     }
 }
 
-//MARK: FeedCollectionViewCell Helper
+// MARK: FeedCollectionViewCell Helper
 private extension FeedCollectionViewCell {
-    
+
     func setupFonts() {
         dateLabel.font = systemsFont
         userNameLabel.font = systemsBoldFont
@@ -106,26 +116,26 @@ private extension FeedCollectionViewCell {
     }
 }
 
-//MARK: TapGestureRecognizer
+// MARK: TapGestureRecognizer
 private extension FeedCollectionViewCell {
     func setupTapGestureRecognizer() {
         /// жест по картинке для лайка
         let gestureImageTap = UITapGestureRecognizer(target: self, action: #selector(doudleLikeTap))
         gestureImageTap.numberOfTapsRequired = 2
         imageView.addGestureRecognizer(gestureImageTap)
-        
+
         /// жест кнопке лайк
         let gestureLikeButtonTap = UITapGestureRecognizer(target: self, action: #selector(likeTap))
         likeButton.addGestureRecognizer(gestureLikeButtonTap)
-        
+
         /// жест для перехода по аватару
         let gestureAvatarTap = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
         avatarImageView.addGestureRecognizer(gestureAvatarTap)
-        
+
         /// жест для перехода по имени и дате(использовал SteakView)
         let gestureNameTap = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
         containerStackView.addGestureRecognizer(gestureNameTap)
-        
+
         /// жест по надписи количество лайков
         let gestureLikeLabelTap = UITapGestureRecognizer(target: self, action: #selector(openLikeList))
         likesLabel.addGestureRecognizer(gestureLikeLabelTap)

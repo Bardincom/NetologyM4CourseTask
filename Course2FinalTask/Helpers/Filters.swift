@@ -11,13 +11,3 @@ import Foundation
 struct Filters {
     let filterArray = ["CILineOverlay", "CIColorInvert", "CIPhotoEffectNoir", "CISpotColor", "CIPhotoEffectTonal", "CIPixellate", "CISepiaTone"]
 }
-
-
-
-
-
-
-
-
-
-

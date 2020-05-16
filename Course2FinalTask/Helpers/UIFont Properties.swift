@@ -8,6 +8,5 @@
 
 import UIKit
 
-
 let systemsBoldFont: UIFont = .systemFont(ofSize: 14, weight: .semibold)
 let systemsFont: UIFont = .systemFont(ofSize: 14)

@@ -17,22 +17,25 @@ public class ActivityIndicator {
     static var style: UIActivityIndicatorView.Style = .white
     static var baseBackColor = UIColor(white: 0, alpha: 0.7)
     static var baseColor = UIColor.white
-   
-    static func start(style: UIActivityIndicatorView.Style = style, backColor: UIColor = baseBackColor, baseColor: UIColor = baseColor) {
+
+    static func start(style: UIActivityIndicatorView.Style = style,
+                      backColor: UIColor = baseBackColor,
+                      baseColor: UIColor = baseColor) {
         DispatchQueue.main.async {
               if activityIndicator == nil, let window = UIApplication.shared.keyWindow {
                       let frame = UIScreen.main.bounds
                       activityIndicator = UIActivityIndicatorView(frame: frame)
-                      
+
                       activityIndicator?.backgroundColor = backColor
                       activityIndicator?.style = style
                       activityIndicator?.color = baseColor
-                      window.addSubview(activityIndicator!)
-                      activityIndicator?.startAnimating()
+                      guard let activityIndicator = activityIndicator else { return }
+                      window.addSubview(activityIndicator)
+                      activityIndicator.startAnimating()
                   }
         }
     }
-    
+
     static func stop() {
         if activityIndicator != nil {
             activityIndicator?.stopAnimating()
@@ -40,12 +43,12 @@ public class ActivityIndicator {
             activityIndicator = nil
         }
     }
-    
-    @objc static func update() {
+
+    @objc
+    static func update() {
         if activityIndicator != nil {
             stop()
             start()
         }
     }
 }
-

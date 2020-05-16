@@ -9,17 +9,17 @@
 import UIKit
 
 class FiltersCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet var thumbnailPhoto: UIImageView!
     @IBOutlet var filterNameLabel: UILabel!
-    
+
     let operationQueue = OperationQueue()
-    
+
     func setFilter(_ name: String, for photo: UIImage) {
-        
+
         self.filterNameLabel.text = name
         let filterOperation = ImageFilterOperation(inputImage: photo, filter: name)
-        
+
         filterOperation.completionBlock = { [ weak self] in
             guard let self = self else { return }
 

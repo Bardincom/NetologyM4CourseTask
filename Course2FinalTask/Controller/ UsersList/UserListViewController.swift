@@ -10,17 +10,17 @@ import UIKit
 import DataProvider
 
 class UserListViewController: UIViewController, NibInit {
-    
+
     var usersList: [User]?
     var userInList: User?
     var navigationItemTitle: String?
-    
+
     @IBOutlet var userListTableView: UITableView! {
         willSet {
             newValue.register(nibCell: UserListTableViewCell.self)
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if let navigationItemTitle = navigationItemTitle {
@@ -29,26 +29,26 @@ class UserListViewController: UIViewController, NibInit {
     }
 }
 
-//MARK: DataSource
+// MARK: DataSource
 extension UserListViewController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         selectUsers(users: usersList).count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(reusable: UserListTableViewCell.self, for: indexPath)
-        
+
         let user = selectUsers(users: usersList)[indexPath.row]
         cell.setupList(user: user)
-        
+
         return cell
     }
 }
 
-//MARK: Delegate
+// MARK: Delegate
 extension UserListViewController: UITableViewDelegate {
-    
+
 //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 //        guard let cell = cell as? UserListTableViewCell else {
 //            assertionFailure()
@@ -57,7 +57,7 @@ extension UserListViewController: UITableViewDelegate {
 //        let user = selectUsers(users: usersList)[indexPath.row]
 //        cell.setupList(user: user)
 //    }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectUser = selectUsers(users: usersList)[indexPath.row]
 

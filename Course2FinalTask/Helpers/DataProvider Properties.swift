@@ -19,7 +19,6 @@ public let queue = DispatchQueue.global(qos: .userInitiated)
 //
 //}
 
-
 //func userNew(user: User?) {
 //    
 //}
@@ -36,8 +35,6 @@ public let photoProvider = DataProviders.shared.photoProvider
 /// Фото для новых публикаций
 public var photoNewPosts = photoProvider.photos()
 
-
-
 /// Текущий пользователь
 //public let currentUser: () = users.currentUser(queue: queue, handler: userHandler)
 
@@ -49,7 +46,6 @@ public var photoNewPosts = photoProvider.photos()
 //    guard let posts = posts else { return [Post]() }
 //    return posts
 //}
-
 
 /// Развертывание опционала для пользователя
 //func selectUser(user: User?) -> () {

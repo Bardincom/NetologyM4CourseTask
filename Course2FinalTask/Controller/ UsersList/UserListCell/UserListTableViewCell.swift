@@ -10,7 +10,7 @@ import UIKit
 import DataProvider
 
 final class UserListTableViewCell: UITableViewCell {
-    
+
     @IBOutlet var avatarImage: UIImageView!
     @IBOutlet var userNameLabel: UILabel!
 
