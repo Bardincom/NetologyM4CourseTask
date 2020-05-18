@@ -24,8 +24,8 @@ class UserListViewController: UIViewController, NibInit {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let navigationItemTitle = navigationItemTitle {
-                  self.navigationItem.title = navigationItemTitle
-              }
+            self.navigationItem.title = navigationItemTitle
+        }
     }
 }
 
@@ -49,20 +49,13 @@ extension UserListViewController: UITableViewDataSource {
 // MARK: Delegate
 extension UserListViewController: UITableViewDelegate {
 
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        guard let cell = cell as? UserListTableViewCell else {
-//            assertionFailure()
-//            return }
-//        
-//        let user = selectUsers(users: usersList)[indexPath.row]
-//        cell.setupList(user: user)
-//    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectUser = selectUsers(users: usersList)[indexPath.row]
-
+        print("выбрали \(selectUser.id)")
         let profileViewController = ProfileViewController()
-        profileViewController.userProfile = selectUser
+        profileViewController.feedUserID = selectUser.id
+//        profileViewController.userProfile = selectUser
+//        self.tabBarController?.selectedViewController = navigationController
         self.navigationController?.pushViewController(profileViewController, animated: true)
         userListTableView.deselectRow(at: indexPath, animated: true)
     }

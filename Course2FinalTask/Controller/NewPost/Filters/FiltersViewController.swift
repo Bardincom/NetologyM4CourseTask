@@ -34,7 +34,9 @@ class FiltersViewController: UIViewController {
 extension FiltersViewController: UICollectionViewDelegateFlowLayout {
 
     /// отступ между ячейками
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 16 }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat { 16 }
 }
 
 extension FiltersViewController: UICollectionViewDataSource {

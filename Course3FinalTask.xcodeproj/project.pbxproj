@@ -50,6 +50,7 @@
 		A2F7486C240420CF00396045 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2F7486B240420CF00396045 /* Launch Screen.storyboard */; };
 		A2FE06AB246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE06AA246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift */; };
 		A2FE06AE246FE0990051CC9E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A2FE06AD246FE0990051CC9E /* .swiftlint.yml */; };
+		A2FE06D42472D0340051CC9E /* visualization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2FE06D32472D0340051CC9E /* visualization.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -111,6 +112,7 @@
 		A2F7486B240420CF00396045 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		A2FE06AA246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UI ViewController + Extension Alerts.swift"; sourceTree = "<group>"; };
 		A2FE06AD246FE0990051CC9E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		A2FE06D32472D0340051CC9E /* visualization.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = visualization.storyboard; sourceTree = "<group>"; };
 		E50C5865A5626BA7CCCB6C79 /* Pods-Course3FinalTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Course3FinalTask.debug.xcconfig"; path = "Target Support Files/Pods-Course3FinalTask/Pods-Course3FinalTask.debug.xcconfig"; sourceTree = "<group>"; };
 		ED042831AEB5C0BF368FD68C /* Pods-Course3FinalTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Course3FinalTask.release.xcconfig"; path = "Target Support Files/Pods-Course3FinalTask/Pods-Course3FinalTask.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -299,6 +301,7 @@
 				A277FCEE246B068D008E14E7 /* UIImage + Extension.swift */,
 				A2AB4FFE2465B74B007BB8F9 /* ActivityIndicator.swift */,
 				A2FE06AA246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift */,
+				A2FE06D32472D0340051CC9E /* visualization.storyboard */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2FE06AE246FE0990051CC9E /* .swiftlint.yml in Resources */,
+				A2FE06D42472D0340051CC9E /* visualization.storyboard in Resources */,
 				A27133B62413B2B0007E13BC /* UserListTableViewCell.xib in Resources */,
 				A2C014E52454F228001A4894 /* NewPostViewController.xib in Resources */,
 				A2F7486124041B2500396045 /* .gitignore in Resources */,

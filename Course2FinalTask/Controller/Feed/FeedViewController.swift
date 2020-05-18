@@ -31,11 +31,11 @@ final class FeedViewController: UIViewController, NibInit {
         super.viewDidLoad()
         // сюда попадает новая публикация и размещается вверху ленты
         newPost = { [weak self] post in
-                      self?.postsArray.insert(post, at: 0)
-                      // переходим в начало Ленты
-                      self?.feedCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-                      self?.feedCollectionView.reloadData()
-                      }
+            self?.postsArray.insert(post, at: 0)
+            // переходим в начало Ленты
+            self?.feedCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            self?.feedCollectionView.reloadData()
+        }
 
         postsDataProviders.feed(queue: queue) { [weak self] posts in
             guard let posts = posts else {
@@ -44,7 +44,6 @@ final class FeedViewController: UIViewController, NibInit {
             self?.postsArray = posts
 
             DispatchQueue.main.async {
-
                 self?.feedCollectionView.reloadData()
             }
         }
@@ -75,7 +74,9 @@ extension FeedViewController: UICollectionViewDataSource {
 // MARK: DelegateFlowLayout
 extension FeedViewController: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
 
         let post = postsArray[indexPath.row]
@@ -85,7 +86,9 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
     }
 
     /// убираю отступ между ячейками
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
 }
@@ -96,27 +99,19 @@ extension FeedViewController: FeedCollectionViewProtocol {
     /// открывает профиль пользователя
     func openUserProfile(cell: FeedCollectionViewCell) {
 
-        ActivityIndicator.start()
-
-        let profileViewController = ProfileViewController()
+        guard let navigationController = tabBarController?.viewControllers?[2] as? UINavigationController else { return }
+        guard let profileViewController = navigationController.viewControllers.first as? ProfileViewController else { return }
 
         guard let indexPath = feedCollectionView.indexPath(for: cell) else { return }
 
         let currentPost = postsArray[indexPath.row]
 
-        userDataProviders.user(with: currentPost.author, queue: queue, handler: { user in
-            guard let user = user else {
-                self.displayAlert()
-                return }
+        profileViewController.feedUserID = currentPost.author
 
-            profileViewController.userProfile = user
-
-            DispatchQueue.main.async {
-
-                self.navigationController?.pushViewController(profileViewController, animated: true)
-                ActivityIndicator.stop()
-            }
-        })
+        DispatchQueue.main.async {
+            self.tabBarController?.selectedViewController = navigationController
+            navigationController.popToRootViewController(animated: true)
+        }
     }
 
     /// ставит лайк на публикацию
@@ -153,6 +148,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
     /// открывает список пользователей поставивших лайк
     func userList(cell: FeedCollectionViewCell) {
         ActivityIndicator.start()
+
         let userListViewController = UserListViewController()
 
         guard let indexPath = feedCollectionView.indexPath(for: cell) else { return }

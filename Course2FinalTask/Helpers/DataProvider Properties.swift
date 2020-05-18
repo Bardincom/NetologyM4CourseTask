@@ -9,6 +9,7 @@
 import DataProvider
 
 public let queue = DispatchQueue.global(qos: .userInitiated)
+public let queueInteractive = DispatchQueue.global(qos: .userInteractive)
 //
 //public let userHandler: ((User?) -> Void) = { user in
 //    guard let user = user else { return }

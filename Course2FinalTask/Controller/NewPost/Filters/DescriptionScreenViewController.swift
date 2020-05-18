@@ -38,8 +38,11 @@ extension DescriptionScreenViewController {
         guard let navigationController = tabBarController?.viewControllers?[0] as? UINavigationController else { return }
         guard let feedViewController = navigationController.viewControllers.first as? FeedViewController else { return }
 
-        guard let newPublishedPhoto = newPublishedPhoto, let descriptionText = descriptionText.text else { return }
-        guard let feedPost = feedViewController.newPost else { return }
+        guard
+            let newPublishedPhoto = newPublishedPhoto,
+            let descriptionText = descriptionText.text,
+            let feedPost = feedViewController.newPost else { return }
+
         postsDataProviders.newPost(with: newPublishedPhoto, description: descriptionText, queue: queue) { newPost in
             guard let newPost = newPost else {
                 self.displayAlert()

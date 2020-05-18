@@ -126,7 +126,7 @@ open_ibaction:
     message: "IBAction should be private or fileprivate"
     severity: error
 
-line_length: 300
+line_length: 200
 
 file_length:
     warning: 500

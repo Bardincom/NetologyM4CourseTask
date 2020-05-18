@@ -49,11 +49,10 @@ final class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         followingLabel.text = "Following: \(user.followsCount)"
 
         buttonDisplay(user: user)
-
     }
 
     func buttonDisplay(user: User) {
-
+        print(user.id)
         if user.currentUserFollowsThisUser {
             followButton.isHidden = false
             followButton.setTitle("Unfollow", for: .normal)

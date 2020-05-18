@@ -11,14 +11,9 @@ import DataProvider
 
 final class ProfileViewController: UIViewController, NibInit {
 
-    var userProfile: User? {
-        didSet {
-            setupProfileViewController()
-        }
-    }
-
-    var currentUser: User?
-
+    var userProfile: User?
+    var feedUserID: User.Identifier?
+    private var currentUser: User?
     private var postsProfile: [Post]?
 
     @IBOutlet weak private var profileCollectionView: UICollectionView! {
@@ -31,18 +26,23 @@ final class ProfileViewController: UIViewController, NibInit {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.delegate = self
+        tabBarController?.delegate = self
+
         view.backgroundColor = viewBackgroundColor
-        userDataProviders.currentUser(queue: queue) { [weak self] currentUser in
-            guard let currentUser = currentUser else {
-                self?.displayAlert()
-                return }
-            self?.currentUser = currentUser
 
-        }
-
-        setupProfileViewController()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let id = feedUserID {
+            loadUserByProfile(id: id)
+//            visibleBackButton()
+        } else {
+            loadCurrentUser()
+        }
+    }
 }
 
 // MARK: DataSourse
@@ -71,8 +71,8 @@ extension ProfileViewController: UICollectionViewDataSource {
                         at indexPath: IndexPath) -> UICollectionReusableView {
 
         let view = collectionView.dequeue(supplementaryView: ProfileHeaderCollectionReusableView.self,
-                                           kind: kind,
-                                           for: indexPath)
+                                          kind: kind,
+                                          for: indexPath)
 
         guard let userProfile = userProfile else { return view }
 
@@ -83,7 +83,9 @@ extension ProfileViewController: UICollectionViewDataSource {
     }
 
     /// задаю размеры Header
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 86)
     }
 }
@@ -91,7 +93,9 @@ extension ProfileViewController: UICollectionViewDataSource {
 // MARK: Delegate FlowLayout
 extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = profileCollectionView.bounds.width / 3
         return CGSize(width: size, height: size)
     }
@@ -113,8 +117,7 @@ extension ProfileViewController {
             }
 
             DispatchQueue.main.async {
-                self.view.backgroundColor = viewBackgroundColor
-                self.title = self.userProfile?.username
+                self.updateUI()
                 self.profileCollectionView.reloadData()
             }
         }
@@ -128,11 +131,7 @@ extension ProfileViewController {
             self?.postsProfile = post
 
             DispatchQueue.main.async {
-
-                self?.view.backgroundColor = viewBackgroundColor
-                self?.title = self?.userProfile?.username
-                self?.tabBarItem.title = ControllerSet.profileViewController
-                self?.profileCollectionView.reloadData()
+                self?.updateUI()
                 ActivityIndicator.stop()
             }
         }
@@ -156,7 +155,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
             userListViewController.usersList = users
 
             DispatchQueue.main.async {
-                userListViewController.navigationItemTitle = NamesItemTitle.following
+                userListViewController.navigationItemTitle = NamesItemTitle.followers
                 self.navigationController?.pushViewController(userListViewController, animated: true)
                 ActivityIndicator.stop()
             }
@@ -179,33 +178,32 @@ extension ProfileViewController: ProfileHeaderDelegate {
             userListViewController.usersList = users
 
             DispatchQueue.main.async {
-                userListViewController.navigationItemTitle = NamesItemTitle.followers
+                userListViewController.navigationItemTitle = NamesItemTitle.following
                 self.navigationController?.pushViewController(userListViewController, animated: true)
                 ActivityIndicator.stop()
             }
         })
     }
 
-    // TODO: убрать интикатор загрузки при подписке или отписке
     func followUnfollowUser() {
 
         guard let userProfile = userProfile else { return }
 
         if userProfile.currentUserFollowsThisUser {
-            userDataProviders.unfollow(userProfile.id, queue: queue) { user in
+            userDataProviders.unfollow(userProfile.id, queue: queueInteractive) { user in
                 guard let user = user else {
                     self.displayAlert()
                     return }
                 self.userProfile = user
 
                 DispatchQueue.main.async {
-                    self.currentUser?.followsCount += 1
+                    self.currentUser?.followsCount -= 1
                     self.profileCollectionView.reloadData()
                 }
             }
 
         } else {
-            userDataProviders.follow(userProfile.id, queue: queue) { user in
+            userDataProviders.follow(userProfile.id, queue: queueInteractive) { user in
                 guard let user = user else {
                     self.displayAlert()
                     return }
@@ -216,6 +214,99 @@ extension ProfileViewController: ProfileHeaderDelegate {
                     self.profileCollectionView.reloadData()
                 }
             }
+        }
+    }
+}
+
+extension ProfileViewController {
+
+    /// Возвращает на ленту с Профиля
+    @objc
+    func backToFeed(_ sender: UITapGestureRecognizer) {
+        feedUserID = nil
+        tabBarController?.selectedIndex = 0
+    }
+
+    /// Отображает кнопку назад при переходе с Ленты на профиль друга
+    func visibleBackButton() {
+//        if #available(iOS 13.0, *) {
+//            navigationItem.leftBarButtonItem = .init(image: leftChevronImage, style: .plain, target: self, action: #selector(backToFeed(_:)))
+//        } else {
+//            navigationItem.leftBarButtonItem = nil
+//        }
+    }
+
+    /// Загрузка профиля друга из ленты
+    func loadUserByProfile(id: User.Identifier) {
+
+        ActivityIndicator.start()
+        feedUserID = id
+        userDataProviders.user(with: id, queue: queue) { user in
+            guard let user = user else {
+                self.displayAlert()
+                return
+            }
+            self.userProfile = user
+
+            postsDataProviders.findPosts(by: user.id, queue: queue) { posts in
+                guard let cPosts = posts else {
+                    self.displayAlert()
+                    return
+                }
+                self.postsProfile = cPosts
+                self.updateUI()
+            }
+        }
+    }
+
+    /// Загрузка профиля текущего пользователя
+    func loadCurrentUser() {
+
+        ActivityIndicator.start()
+        userDataProviders.currentUser(queue: queue) { user in
+            guard let cUser = user else {
+                self.displayAlert()
+                return
+            }
+            self.userProfile = cUser
+
+            postsDataProviders.findPosts(by: cUser.id, queue: queue) { posts in
+                guard let cPosts = posts else {
+                    self.displayAlert()
+                    return
+                }
+                self.postsProfile = cPosts
+                self.updateUI()
+            }
+        }
+    }
+
+    func updateUI() {
+        DispatchQueue.main.async {
+            ActivityIndicator.stop()
+            self.view.backgroundColor = viewBackgroundColor
+            self.title = self.userProfile?.username
+            self.tabBarItem.title = ControllerSet.profileViewController
+            self.profileCollectionView.reloadData()
+        }
+    }
+}
+
+extension ProfileViewController: UINavigationControllerDelegate {
+
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        if viewController === ProfileViewController.self {
+            updateUI()
+        }
+    }
+}
+
+extension ProfileViewController: UITabBarControllerDelegate {
+
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController !== navigationController {
+            feedUserID = nil
+            navigationController?.popToRootViewController(animated: false)
         }
     }
 }

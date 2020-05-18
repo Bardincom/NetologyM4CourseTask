@@ -39,24 +39,18 @@ extension NewPostViewController: UICollectionViewDataSource {
 }
 
 extension NewPostViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard let cell = cell as? ProfileCollectionViewCell else {
-//            assertionFailure()
-//            return
-//        }
-//        
-//        let photo = photoNewPosts[indexPath.row]
-//        /// установка изображений
-//        cell.imageView(newPhoto: photo)
-//    }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = newPostViewController.bounds.width / 3
         return CGSize(width: size, height: size)
     }
 
     /// убираю отступ между ячейками
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 0 }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat { 0 }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectPhoto = photoNewPosts[indexPath.row]
