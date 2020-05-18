@@ -31,7 +31,7 @@ final class ProfileViewController: UIViewController, NibInit {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = viewBackgroundColor
+        view.backgroundColor = Asset.ColorAssets.viewBackground.color
         userDataProviders.currentUser(queue: queue) { [weak self] currentUser in
             guard let currentUser = currentUser else {
                 self?.displayAlert()
@@ -113,7 +113,7 @@ extension ProfileViewController {
             }
 
             DispatchQueue.main.async {
-                self.view.backgroundColor = viewBackgroundColor
+                self.view.backgroundColor = Asset.ColorAssets.viewBackground.color
                 self.title = self.userProfile?.username
                 self.profileCollectionView.reloadData()
             }
@@ -129,7 +129,7 @@ extension ProfileViewController {
 
             DispatchQueue.main.async {
 
-                self?.view.backgroundColor = viewBackgroundColor
+                self?.view.backgroundColor = Asset.ColorAssets.viewBackground.color
                 self?.title = self?.userProfile?.username
                 self?.tabBarItem.title = ControllerSet.profileViewController
                 self?.profileCollectionView.reloadData()
@@ -156,7 +156,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
             userListViewController.usersList = users
 
             DispatchQueue.main.async {
-                userListViewController.navigationItemTitle = NamesItemTitle.following
+                userListViewController.navigationItemTitle = NamesItemTitle.followers
                 self.navigationController?.pushViewController(userListViewController, animated: true)
                 ActivityIndicator.stop()
             }
@@ -179,14 +179,13 @@ extension ProfileViewController: ProfileHeaderDelegate {
             userListViewController.usersList = users
 
             DispatchQueue.main.async {
-                userListViewController.navigationItemTitle = NamesItemTitle.followers
+                userListViewController.navigationItemTitle = NamesItemTitle.following
                 self.navigationController?.pushViewController(userListViewController, animated: true)
                 ActivityIndicator.stop()
             }
         })
     }
 
-    // TODO: убрать интикатор загрузки при подписке или отписке
     func followUnfollowUser() {
 
         guard let userProfile = userProfile else { return }
@@ -199,7 +198,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
                 self.userProfile = user
 
                 DispatchQueue.main.async {
-                    self.currentUser?.followsCount += 1
+                    self.currentUser?.followsCount -= 1
                     self.profileCollectionView.reloadData()
                 }
             }

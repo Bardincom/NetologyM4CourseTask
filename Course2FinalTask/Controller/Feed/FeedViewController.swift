@@ -126,7 +126,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
 
         let postID = postsArray[indexPath.row].id
 
-        guard cell.likeButton.tintColor == lightGrayColor else {
+        guard cell.likeButton.tintColor == Asset.ColorAssets.lightGray.color else {
 
             postsDataProviders.unlikePost(with: postID, queue: queue) { unlikePost in
                 self.post = unlikePost
@@ -134,7 +134,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
 
             postsArray[indexPath.row].currentUserLikesThisPost = false
             postsArray[indexPath.row].likedByCount -= 1
-            cell.tintColor = lightGrayColor
+            cell.tintColor = Asset.ColorAssets.lightGray.color
             self.feedCollectionView.reloadData()
             return
         }
@@ -145,7 +145,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
 
         postsArray[indexPath.row].currentUserLikesThisPost = true
         postsArray[indexPath.row].likedByCount += 1
-        cell.tintColor = defaultTintColor
+        cell.tintColor = Asset.ColorAssets.defaultTint.color
 
         self.feedCollectionView.reloadData()
     }

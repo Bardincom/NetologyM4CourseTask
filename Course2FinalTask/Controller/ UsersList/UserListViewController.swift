@@ -49,15 +49,6 @@ extension UserListViewController: UITableViewDataSource {
 // MARK: Delegate
 extension UserListViewController: UITableViewDelegate {
 
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        guard let cell = cell as? UserListTableViewCell else {
-//            assertionFailure()
-//            return }
-//        
-//        let user = selectUsers(users: usersList)[indexPath.row]
-//        cell.setupList(user: user)
-//    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectUser = selectUsers(users: usersList)[indexPath.row]
 

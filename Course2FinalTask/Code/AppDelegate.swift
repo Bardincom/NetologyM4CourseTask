@@ -26,21 +26,21 @@ private extension AppDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
 
         let feedViewController = FeedViewController()
-        feedViewController.tabBarItem.image = imageFeedViewController
+        feedViewController.tabBarItem.image = Asset.IconAssets.feed.image
         let feedNavigationController = UINavigationController(rootViewController: feedViewController)
 
         let profileViewController = ProfileViewController()
         profileViewController.tabBarItem.title = ControllerSet.profileViewController
-        profileViewController.tabBarItem.image = imageProfileViewController
+        profileViewController.tabBarItem.image = Asset.IconAssets.profile.image
         let profileNavigationController = UINavigationController(rootViewController: profileViewController)
 
         let newPostViewController = NewPostViewController()
         newPostViewController.tabBarItem.title = ControllerSet.newPostViewController
-        newPostViewController.tabBarItem.image = imageNewPostViewController
+        newPostViewController.tabBarItem.image = Asset.IconAssets.plus.image
         let newNavigationController = UINavigationController(rootViewController: newPostViewController)
 
         let tabBarController = UITabBarController()
-        tabBarController.tabBar.backgroundColor = viewBackgroundColor
+        tabBarController.tabBar.backgroundColor = Asset.ColorAssets.viewBackground.color
         tabBarController.setViewControllers([feedNavigationController, newNavigationController, profileNavigationController], animated: false)
 
         window?.rootViewController = tabBarController

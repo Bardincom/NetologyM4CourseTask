@@ -8,10 +8,6 @@
 
 import UIKit
 
-let imageFeedViewController = #imageLiteral(resourceName: "feed")
-let imageProfileViewController = #imageLiteral(resourceName: "profile")
-let imageNewPostViewController = #imageLiteral(resourceName: "plus")
-
 public enum ControllerSet {
     static let feedViewController = "Feed"
     static let profileViewController = "Profile"

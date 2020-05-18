@@ -56,10 +56,10 @@ final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
 
         /// отображение лайка на публикации текущего пользователя
         guard post.currentUserLikesThisPost else {
-            likeButton.tintColor = lightGrayColor
+            likeButton.tintColor = Asset.ColorAssets.lightGray.color
             return
         }
-        likeButton.tintColor = defaultTintColor
+        likeButton.tintColor = Asset.ColorAssets.defaultTint.color
     }
 
 }
@@ -98,7 +98,7 @@ extension FeedCollectionViewCell {
             }, completion: nil)
         })
 
-        if likeButton.tintColor == lightGrayColor {
+        if likeButton.tintColor == Asset.ColorAssets.lightGray.color {
             delegate?.likePost(cell: self)
         }
     }
@@ -112,7 +112,7 @@ private extension FeedCollectionViewCell {
         userNameLabel.font = systemsBoldFont
         likesLabel.font = systemsBoldFont
         descriptionLabel.font = systemsFont
-        likeButton.tintColor = defaultTintColor
+        likeButton.tintColor = Asset.ColorAssets.defaultTint.color
     }
 }
 

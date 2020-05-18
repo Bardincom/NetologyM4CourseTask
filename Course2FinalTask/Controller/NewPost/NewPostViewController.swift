@@ -39,16 +39,6 @@ extension NewPostViewController: UICollectionViewDataSource {
 }
 
 extension NewPostViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard let cell = cell as? ProfileCollectionViewCell else {
-//            assertionFailure()
-//            return
-//        }
-//        
-//        let photo = photoNewPosts[indexPath.row]
-//        /// установка изображений
-//        cell.imageView(newPhoto: photo)
-//    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = newPostViewController.bounds.width / 3
