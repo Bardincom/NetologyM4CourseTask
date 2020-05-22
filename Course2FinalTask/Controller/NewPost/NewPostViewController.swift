@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class NewPostViewController: UIViewController, NibInit {
+final class NewPostViewController: UIViewController {
 
     @IBOutlet private var newPostViewController: UICollectionView! {
         willSet {

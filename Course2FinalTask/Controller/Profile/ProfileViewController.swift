@@ -9,7 +9,7 @@
 import UIKit
 import DataProvider
 
-final class ProfileViewController: UIViewController, NibInit {
+final class ProfileViewController: UIViewController {
 
     var userProfile: User?
     var feedUserID: User.Identifier?
@@ -23,11 +23,22 @@ final class ProfileViewController: UIViewController, NibInit {
         }
     }
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setupProfileViewController()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.delegate = self
         tabBarController?.delegate = self
+
+        updateUI()
 
         view.backgroundColor = viewBackgroundColor
 
@@ -107,18 +118,12 @@ extension ProfileViewController {
 
     func setupProfileViewController() {
 
-        ActivityIndicator.start()
         if userProfile == nil {
             userDataProviders.currentUser(queue: queue) { [weak self] user in
                 guard let user = user else {
                     self?.displayAlert()
                     return }
                 self?.userProfile = user
-            }
-
-            DispatchQueue.main.async {
-                self.updateUI()
-                self.profileCollectionView.reloadData()
             }
         }
 
@@ -129,11 +134,6 @@ extension ProfileViewController {
                 self?.displayAlert()
                 return }
             self?.postsProfile = post
-
-            DispatchQueue.main.async {
-                self?.updateUI()
-                ActivityIndicator.stop()
-            }
         }
     }
 }
@@ -229,11 +229,11 @@ extension ProfileViewController {
 
     /// Отображает кнопку назад при переходе с Ленты на профиль друга
     func visibleBackButton() {
-//        if #available(iOS 13.0, *) {
-//            navigationItem.leftBarButtonItem = .init(image: leftChevronImage, style: .plain, target: self, action: #selector(backToFeed(_:)))
-//        } else {
-//            navigationItem.leftBarButtonItem = nil
-//        }
+        if #available(iOS 13.0, *) {
+            navigationItem.leftBarButtonItem = .init(image: leftChevronImage, style: .plain, target: self, action: #selector(backToFeed(_:)))
+        } else {
+            navigationItem.leftBarButtonItem = nil
+        }
     }
 
     /// Загрузка профиля друга из ленты

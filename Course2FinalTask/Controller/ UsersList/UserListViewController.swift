@@ -9,7 +9,7 @@
 import UIKit
 import DataProvider
 
-class UserListViewController: UIViewController, NibInit {
+class UserListViewController: UIViewController {
 
     var usersList: [User]?
     var userInList: User?
@@ -26,6 +26,8 @@ class UserListViewController: UIViewController, NibInit {
         if let navigationItemTitle = navigationItemTitle {
             self.navigationItem.title = navigationItemTitle
         }
+
+        userListTableView.reloadData()
     }
 }
 
@@ -51,7 +53,6 @@ extension UserListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectUser = selectUsers(users: usersList)[indexPath.row]
-        print("выбрали \(selectUser.id)")
         let profileViewController = ProfileViewController()
         profileViewController.feedUserID = selectUser.id
 //        profileViewController.userProfile = selectUser

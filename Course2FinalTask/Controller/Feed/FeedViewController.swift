@@ -9,11 +9,12 @@
 import UIKit
 import DataProvider
 
-final class FeedViewController: UIViewController, NibInit {
+final class FeedViewController: UIViewController {
 
     private var postsArray: [Post] = []
     private var post: Post?
     var newPost: ((Post) -> Void)?
+    var alertAction: ((Bool) -> Void)?
 
     @IBOutlet weak private var feedCollectionView: UICollectionView! {
         willSet {
@@ -27,6 +28,29 @@ final class FeedViewController: UIViewController, NibInit {
         }
     }
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        postsDataProviders.feed(queue: queue) { posts in
+            guard let posts = posts else {
+                self.alertAction = { bool in
+                    if bool {
+                        self.displayAlert()
+                    }
+                }
+                return }
+            self.postsArray = posts
+            DispatchQueue.main.async {
+                if self.isViewLoaded {
+                    self.feedCollectionView.reloadData()
+                }
+            }
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // сюда попадает новая публикация и размещается вверху ленты
@@ -37,16 +61,7 @@ final class FeedViewController: UIViewController, NibInit {
             self?.feedCollectionView.reloadData()
         }
 
-        postsDataProviders.feed(queue: queue) { [weak self] posts in
-            guard let posts = posts else {
-                self?.displayAlert()
-                return }
-            self?.postsArray = posts
-
-            DispatchQueue.main.async {
-                self?.feedCollectionView.reloadData()
-            }
-        }
+        alertAction?(isViewLoaded)
 
         title = ControllerSet.feedViewController
     }
@@ -148,6 +163,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
     /// открывает список пользователей поставивших лайк
     func userList(cell: FeedCollectionViewCell) {
         ActivityIndicator.start()
+        tabBarController?.selectedIndex = 2
 
         let userListViewController = UserListViewController()
 
@@ -162,9 +178,12 @@ extension FeedViewController: FeedCollectionViewProtocol {
             userListViewController.usersList = usersArray
 
             DispatchQueue.main.async {
+
                 userListViewController.navigationItemTitle = NamesItemTitle.likes
+                self.tabBarController?.selectedViewController = userListViewController
                 self.navigationController?.pushViewController(userListViewController, animated: true)
                 ActivityIndicator.stop()
+
             }
         }
     }

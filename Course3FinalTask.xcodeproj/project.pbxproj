@@ -15,7 +15,6 @@
 		A23BC8A62418FF3800640E54 /* UIColor Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23BC8A52418FF3700640E54 /* UIColor Properties.swift */; };
 		A23BC8A82419046E00640E54 /* DataProvider Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23BC8A72419046E00640E54 /* DataProvider Properties.swift */; };
 		A23BC8AA2419054400640E54 /* UIFont Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23BC8A92419054400640E54 /* UIFont Properties.swift */; };
-		A2473B9E240825D600623034 /* NibInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2473B9D240825D600623034 /* NibInit.swift */; };
 		A25685BD2433307400A09C0D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F7486724041F7700396045 /* ProfileViewController.swift */; };
 		A25685BF24335B7F00A09C0D /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27133AE2413B259007E13BC /* UserListViewController.swift */; };
 		A25685C024335B9400A09C0D /* UserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27133B32413B2B0007E13BC /* UserListTableViewCell.swift */; };
@@ -50,7 +49,6 @@
 		A2F7486C240420CF00396045 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2F7486B240420CF00396045 /* Launch Screen.storyboard */; };
 		A2FE06AB246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE06AA246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift */; };
 		A2FE06AE246FE0990051CC9E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A2FE06AD246FE0990051CC9E /* .swiftlint.yml */; };
-		A2FE06D42472D0340051CC9E /* visualization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2FE06D32472D0340051CC9E /* visualization.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,7 +75,6 @@
 		A23BC8A52418FF3700640E54 /* UIColor Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor Properties.swift"; sourceTree = "<group>"; };
 		A23BC8A72419046E00640E54 /* DataProvider Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataProvider Properties.swift"; sourceTree = "<group>"; };
 		A23BC8A92419054400640E54 /* UIFont Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont Properties.swift"; sourceTree = "<group>"; };
-		A2473B9D240825D600623034 /* NibInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibInit.swift; sourceTree = "<group>"; };
 		A25E5460240C275200478BC5 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		A25E5461240C275200478BC5 /* ProfileHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		A27133A9240F7FB8007E13BC /* UIViewController Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Properties.swift"; sourceTree = "<group>"; };
@@ -112,7 +109,6 @@
 		A2F7486B240420CF00396045 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		A2FE06AA246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UI ViewController + Extension Alerts.swift"; sourceTree = "<group>"; };
 		A2FE06AD246FE0990051CC9E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		A2FE06D32472D0340051CC9E /* visualization.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = visualization.storyboard; sourceTree = "<group>"; };
 		E50C5865A5626BA7CCCB6C79 /* Pods-Course3FinalTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Course3FinalTask.debug.xcconfig"; path = "Target Support Files/Pods-Course3FinalTask/Pods-Course3FinalTask.debug.xcconfig"; sourceTree = "<group>"; };
 		ED042831AEB5C0BF368FD68C /* Pods-Course3FinalTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Course3FinalTask.release.xcconfig"; path = "Target Support Files/Pods-Course3FinalTask/Pods-Course3FinalTask.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -296,12 +292,10 @@
 				A27133AB240FC416007E13BC /* Date + Extension.swift */,
 				A293F706240BB8EC003D5A96 /* UICollectionView + Extension.swift */,
 				A27133B72413BB16007E13BC /* UITableView + Extension.swift */,
-				A2473B9D240825D600623034 /* NibInit.swift */,
 				A277FCEC246AE300008E14E7 /* Filters.swift */,
 				A277FCEE246B068D008E14E7 /* UIImage + Extension.swift */,
 				A2AB4FFE2465B74B007BB8F9 /* ActivityIndicator.swift */,
 				A2FE06AA246DD44B0051CC9E /* UI ViewController + Extension Alerts.swift */,
-				A2FE06D32472D0340051CC9E /* visualization.storyboard */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -400,7 +394,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2FE06AE246FE0990051CC9E /* .swiftlint.yml in Resources */,
-				A2FE06D42472D0340051CC9E /* visualization.storyboard in Resources */,
 				A27133B62413B2B0007E13BC /* UserListTableViewCell.xib in Resources */,
 				A2C014E52454F228001A4894 /* NewPostViewController.xib in Resources */,
 				A2F7486124041B2500396045 /* .gitignore in Resources */,
@@ -469,7 +462,6 @@
 			files = (
 				A277FCED246AE300008E14E7 /* Filters.swift in Sources */,
 				A25E5462240C275200478BC5 /* ProfileHeaderCollectionReusableView.swift in Sources */,
-				A2473B9E240825D600623034 /* NibInit.swift in Sources */,
 				A2AB4FFF2465B74B007BB8F9 /* ActivityIndicator.swift in Sources */,
 				A293F707240BB8EC003D5A96 /* UICollectionView + Extension.swift in Sources */,
 				A23BC8AA2419054400640E54 /* UIFont Properties.swift in Sources */,

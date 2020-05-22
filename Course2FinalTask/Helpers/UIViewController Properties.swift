@@ -12,10 +12,10 @@ let imageFeedViewController = #imageLiteral(resourceName: "feed")
 let imageProfileViewController = #imageLiteral(resourceName: "profile")
 let imageNewPostViewController = #imageLiteral(resourceName: "plus")
 
-//@available(iOS 13.0, *)
-//let config = UIImage.SymbolConfiguration(pointSize: 20.0, weight: .semibold, scale: .default)
-//@available(iOS 13.0, *)
-//let leftChevronImage = UIImage(systemName: "chevron.left", withConfiguration: config)
+@available(iOS 13.0, *)
+let config = UIImage.SymbolConfiguration(pointSize: 20.0, weight: .semibold, scale: .default)
+@available(iOS 13.0, *)
+let leftChevronImage = UIImage(systemName: "chevron.left", withConfiguration: config)
 
 public enum ControllerSet {
     static let feedViewController = "Feed"

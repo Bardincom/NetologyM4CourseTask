@@ -15,7 +15,7 @@ protocol FeedCollectionViewProtocol: class {
     func userList(cell: FeedCollectionViewCell)
 }
 
-final class FeedCollectionViewCell: UICollectionViewCell, NibInit {
+final class FeedCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var likeButton: UIButton!
     @IBOutlet private var userNameLabel: UILabel!

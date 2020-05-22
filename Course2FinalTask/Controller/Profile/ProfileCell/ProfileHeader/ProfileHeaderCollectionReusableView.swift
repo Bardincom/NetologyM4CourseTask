@@ -52,7 +52,6 @@ final class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     }
 
     func buttonDisplay(user: User) {
-        print(user.id)
         if user.currentUserFollowsThisUser {
             followButton.isHidden = false
             followButton.setTitle("Unfollow", for: .normal)
