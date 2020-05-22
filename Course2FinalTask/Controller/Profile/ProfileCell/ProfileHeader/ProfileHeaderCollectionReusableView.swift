@@ -41,10 +41,13 @@ final class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     func setHeader(user: User) {
         avatarImage.image = user.avatar
         avatarImage.layer.cornerRadius = avatarImage.frame.height / 2
+        fullNameLabel.alpha = 1
         fullNameLabel.font = systemsFont
         fullNameLabel.text = user.fullName
+        followersLabel.alpha = 1
         followersLabel.font = systemsBoldFont
         followersLabel.text = "Followers: \(user.followedByCount)"
+        followingLabel.alpha = 1
         followingLabel.font = systemsBoldFont
         followingLabel.text = "Following: \(user.followsCount)"
 

@@ -9,14 +9,16 @@
 import UIKit
 import DataProvider
 
-final class ProfileViewController: UIViewController, NibInit {
+final class ProfileViewController: UIViewController {
 
-    var userProfile: User? {
-        didSet {
-            setupProfileViewController()
-        }
-    }
+    //    var userProfile: User? {
+    //        didSet {
+    //            setupProfileViewController()
+    //        }
+    //    }
 
+    var userProfile: User?
+    var feedUserID: User.Identifier?
     var currentUser: User?
 
     private var postsProfile: [Post]?
@@ -32,15 +34,23 @@ final class ProfileViewController: UIViewController, NibInit {
         super.viewDidLoad()
 
         view.backgroundColor = Asset.ColorAssets.viewBackground.color
-        userDataProviders.currentUser(queue: queue) { [weak self] currentUser in
-            guard let currentUser = currentUser else {
-                self?.displayAlert()
-                return }
-            self?.currentUser = currentUser
 
+        navigationController?.delegate = self
+        tabBarController?.delegate = self
+
+        view.backgroundColor = Asset.ColorAssets.viewBackground.color
+
+        updateUI()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let id = feedUserID {
+            loadUserByProfile(id: id)
+        } else {
+            loadCurrentUser()
         }
-
-        setupProfileViewController()
     }
 
 }
@@ -71,8 +81,8 @@ extension ProfileViewController: UICollectionViewDataSource {
                         at indexPath: IndexPath) -> UICollectionReusableView {
 
         let view = collectionView.dequeue(supplementaryView: ProfileHeaderCollectionReusableView.self,
-                                           kind: kind,
-                                           for: indexPath)
+                                          kind: kind,
+                                          for: indexPath)
 
         guard let userProfile = userProfile else { return view }
 
@@ -101,9 +111,44 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 // MARK: setViewController
 extension ProfileViewController {
 
+    //    func setupProfileViewController() {
+    //
+    //        ActivityIndicator.start()
+    //        if userProfile == nil {
+    //            userDataProviders.currentUser(queue: queue) { [weak self] user in
+    //                guard let user = user else {
+    //                    self?.displayAlert()
+    //                    return }
+    //                self?.userProfile = user
+    //            }
+    //
+    //            DispatchQueue.main.async {
+    //                self.view.backgroundColor = Asset.ColorAssets.viewBackground.color
+    //                self.title = self.userProfile?.username
+    //                self.profileCollectionView.reloadData()
+    //            }
+    //        }
+    //
+    //        guard let userProfile = userProfile?.id else { return }
+    //
+    //        postsDataProviders.findPosts(by: userProfile, queue: queue) { [weak self] post in
+    //            guard let post = post else {
+    //                self?.displayAlert()
+    //                return }
+    //            self?.postsProfile = post
+    //
+    //            DispatchQueue.main.async {
+    //
+    //                self?.view.backgroundColor = Asset.ColorAssets.viewBackground.color
+    //                self?.title = self?.userProfile?.username
+    //                self?.tabBarItem.title = ControllerSet.profileViewController
+    //                self?.profileCollectionView.reloadData()
+    //                ActivityIndicator.stop()
+    //            }
+    //        }
+    //    }
     func setupProfileViewController() {
 
-        ActivityIndicator.start()
         if userProfile == nil {
             userDataProviders.currentUser(queue: queue) { [weak self] user in
                 guard let user = user else {
@@ -111,32 +156,72 @@ extension ProfileViewController {
                     return }
                 self?.userProfile = user
             }
-
-            DispatchQueue.main.async {
-                self.view.backgroundColor = Asset.ColorAssets.viewBackground.color
-                self.title = self.userProfile?.username
-                self.profileCollectionView.reloadData()
-            }
         }
 
-        guard let userProfile = userProfile?.id else { return }
+        guard let userProfile = feedUserID else { return }
 
         postsDataProviders.findPosts(by: userProfile, queue: queue) { [weak self] post in
             guard let post = post else {
                 self?.displayAlert()
                 return }
             self?.postsProfile = post
+        }
+    }
 
-            DispatchQueue.main.async {
+    func updateUI() {
+        DispatchQueue.main.async {
+            ActivityIndicator.stop()
+            self.view.backgroundColor = Asset.ColorAssets.viewBackground.color
+            self.title = self.userProfile?.username
+            self.tabBarItem.title = ControllerSet.profileViewController
+            self.profileCollectionView.reloadData()
+        }
+    }
 
-                self?.view.backgroundColor = Asset.ColorAssets.viewBackground.color
-                self?.title = self?.userProfile?.username
-                self?.tabBarItem.title = ControllerSet.profileViewController
-                self?.profileCollectionView.reloadData()
-                ActivityIndicator.stop()
+    /// Загрузка профиля друга из ленты
+    func loadUserByProfile(id: User.Identifier) {
+
+        ActivityIndicator.start()
+        feedUserID = id
+        userDataProviders.user(with: id, queue: queue) { user in
+            guard let user = user else {
+                self.displayAlert()
+                return
+            }
+            self.userProfile = user
+
+            postsDataProviders.findPosts(by: user.id, queue: queue) { posts in
+                guard let cPosts = posts else {
+                    self.displayAlert()
+                    return
+                }
+                self.postsProfile = cPosts
+                self.updateUI()
             }
         }
     }
+
+    /// Загрузка профиля текущего пользователя
+       func loadCurrentUser() {
+
+           ActivityIndicator.start()
+           userDataProviders.currentUser(queue: queue) { user in
+               guard let cUser = user else {
+                   self.displayAlert()
+                   return
+               }
+               self.userProfile = cUser
+
+               postsDataProviders.findPosts(by: cUser.id, queue: queue) { posts in
+                   guard let cPosts = posts else {
+                       self.displayAlert()
+                       return
+                   }
+                   self.postsProfile = cPosts
+                   self.updateUI()
+               }
+           }
+       }
 }
 
 // MARK: ProfileHeaderDelegate
@@ -171,16 +256,16 @@ extension ProfileViewController: ProfileHeaderDelegate {
 
         guard let userID = userProfile?.id else { return }
 
-        userDataProviders.usersFollowedByUser(with: userID, queue: queue, handler: { users in
+        userDataProviders.usersFollowedByUser(with: userID, queue: queue, handler: { [weak self] users in
             guard let users = users else {
-                self.displayAlert()
+                self?.displayAlert()
                 return }
 
             userListViewController.usersList = users
 
             DispatchQueue.main.async {
                 userListViewController.navigationItemTitle = NamesItemTitle.following
-                self.navigationController?.pushViewController(userListViewController, animated: true)
+                self?.navigationController?.pushViewController(userListViewController, animated: true)
                 ActivityIndicator.stop()
             }
         })
@@ -191,30 +276,49 @@ extension ProfileViewController: ProfileHeaderDelegate {
         guard let userProfile = userProfile else { return }
 
         if userProfile.currentUserFollowsThisUser {
-            userDataProviders.unfollow(userProfile.id, queue: queue) { user in
+            userDataProviders.unfollow(userProfile.id, queue: queue) { [weak self] user in
                 guard let user = user else {
-                    self.displayAlert()
+                    self?.displayAlert()
                     return }
-                self.userProfile = user
+                self?.userProfile = user
 
                 DispatchQueue.main.async {
-                    self.currentUser?.followsCount -= 1
-                    self.profileCollectionView.reloadData()
+                    self?.currentUser?.followsCount -= 1
+                    self?.profileCollectionView.reloadData()
                 }
             }
 
         } else {
-            userDataProviders.follow(userProfile.id, queue: queue) { user in
+            userDataProviders.follow(userProfile.id, queue: queue) { [weak self] user in
                 guard let user = user else {
-                    self.displayAlert()
+                    self?.displayAlert()
                     return }
-                self.userProfile = user
+                self?.userProfile = user
 
                 DispatchQueue.main.async {
-                    self.currentUser?.followsCount += 1
-                    self.profileCollectionView.reloadData()
+                    self?.currentUser?.followsCount += 1
+                    self?.profileCollectionView.reloadData()
                 }
             }
+        }
+    }
+}
+
+extension ProfileViewController: UINavigationControllerDelegate {
+
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        if viewController === ProfileViewController.self {
+            updateUI()
+        }
+    }
+}
+
+extension ProfileViewController: UITabBarControllerDelegate {
+
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController !== navigationController {
+            feedUserID = nil
+            navigationController?.popToRootViewController(animated: false)
         }
     }
 }

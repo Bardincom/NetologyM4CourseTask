@@ -9,7 +9,7 @@
 import UIKit
 import DataProvider
 
-class UserListViewController: UIViewController, NibInit {
+class UserListViewController: UIViewController {
 
     var usersList: [User]?
     var userInList: User?
@@ -53,7 +53,7 @@ extension UserListViewController: UITableViewDelegate {
         let selectUser = selectUsers(users: usersList)[indexPath.row]
 
         let profileViewController = ProfileViewController()
-        profileViewController.userProfile = selectUser
+        profileViewController.feedUserID = selectUser.id
         self.navigationController?.pushViewController(profileViewController, animated: true)
         userListTableView.deselectRow(at: indexPath, animated: true)
     }
