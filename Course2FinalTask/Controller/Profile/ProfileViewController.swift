@@ -11,12 +11,6 @@ import DataProvider
 
 final class ProfileViewController: UIViewController {
 
-    //    var userProfile: User? {
-    //        didSet {
-    //            setupProfileViewController()
-    //        }
-    //    }
-
     var userProfile: User?
     var feedUserID: User.Identifier?
     var currentUser: User?
@@ -111,42 +105,6 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 // MARK: setViewController
 extension ProfileViewController {
 
-    //    func setupProfileViewController() {
-    //
-    //        ActivityIndicator.start()
-    //        if userProfile == nil {
-    //            userDataProviders.currentUser(queue: queue) { [weak self] user in
-    //                guard let user = user else {
-    //                    self?.displayAlert()
-    //                    return }
-    //                self?.userProfile = user
-    //            }
-    //
-    //            DispatchQueue.main.async {
-    //                self.view.backgroundColor = Asset.ColorAssets.viewBackground.color
-    //                self.title = self.userProfile?.username
-    //                self.profileCollectionView.reloadData()
-    //            }
-    //        }
-    //
-    //        guard let userProfile = userProfile?.id else { return }
-    //
-    //        postsDataProviders.findPosts(by: userProfile, queue: queue) { [weak self] post in
-    //            guard let post = post else {
-    //                self?.displayAlert()
-    //                return }
-    //            self?.postsProfile = post
-    //
-    //            DispatchQueue.main.async {
-    //
-    //                self?.view.backgroundColor = Asset.ColorAssets.viewBackground.color
-    //                self?.title = self?.userProfile?.username
-    //                self?.tabBarItem.title = ControllerSet.profileViewController
-    //                self?.profileCollectionView.reloadData()
-    //                ActivityIndicator.stop()
-    //            }
-    //        }
-    //    }
     func setupProfileViewController() {
 
         if userProfile == nil {

@@ -28,7 +28,7 @@ extension DescriptionScreenViewController {
     func setupFiltersViewController() {
         publishedPhoto.image = newPublishedPhoto
 
-        descriptionText.placeholder =  "Enter you description"
+        descriptionText.placeholder = "Enter you description"
         navigationItem.rightBarButtonItem = .init(title: "Shared", style: .plain, target: self, action: #selector(sharedPhoto(_:)))
     }
 

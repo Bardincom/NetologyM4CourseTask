@@ -109,8 +109,6 @@ extension FeedViewController: FeedCollectionViewProtocol {
     /// открывает профиль пользователя
     func openUserProfile(cell: FeedCollectionViewCell) {
 
-//        ActivityIndicator.start()
-
         let profileViewController = ProfileViewController()
 
         guard let indexPath = feedCollectionView.indexPath(for: cell) else { return }
@@ -125,9 +123,7 @@ extension FeedViewController: FeedCollectionViewProtocol {
             profileViewController.feedUserID = user.id
 
             DispatchQueue.main.async {
-
                 self?.navigationController?.pushViewController(profileViewController, animated: true)
-                ActivityIndicator.stop()
             }
         })
     }
